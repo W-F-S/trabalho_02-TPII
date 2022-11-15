@@ -1,0 +1,8 @@
+/home/walker/Documents/dev/trabalhos/tp2/trabalho_02-TPII/build-sistema-Desktop-Debug/CMakeFiles/sistema.dir
+/home/walker/Documents/dev/trabalhos/tp2/trabalho_02-TPII/build-sistema-Desktop-Debug/CMakeFiles/atendente.dir
+/home/walker/Documents/dev/trabalhos/tp2/trabalho_02-TPII/build-sistema-Desktop-Debug/CMakeFiles/edit_cache.dir
+/home/walker/Documents/dev/trabalhos/tp2/trabalho_02-TPII/build-sistema-Desktop-Debug/CMakeFiles/rebuild_cache.dir
+/home/walker/Documents/dev/trabalhos/tp2/trabalho_02-TPII/build-sistema-Desktop-Debug/CMakeFiles/sistema_autogen_timestamp_deps.dir
+/home/walker/Documents/dev/trabalhos/tp2/trabalho_02-TPII/build-sistema-Desktop-Debug/CMakeFiles/sistema_autogen.dir
+/home/walker/Documents/dev/trabalhos/tp2/trabalho_02-TPII/build-sistema-Desktop-Debug/CMakeFiles/atendente_autogen_timestamp_deps.dir
+/home/walker/Documents/dev/trabalhos/tp2/trabalho_02-TPII/build-sistema-Desktop-Debug/CMakeFiles/atendente_autogen.dir

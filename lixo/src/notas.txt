@@ -1,0 +1,22 @@
+
+
+    void consultar_agenda_pasciente();
+
+como vamos estruturar a agenda do paciente? 
+  podemos fazer usando uma lista
+                      usando maps e dicionarios
+  acho que o melhor método seria uma struct. 
+  Ou podemos simplesmente usar uma string e interpretar o resultado
+    struct data
+      int dia
+      int horario
+      int mes
+      int ano
+      string assunto
+    
+
+
+
+acho que é melhor a gente criar uma pasta para cada funcionario, fica mais fácil de organizar dados como agenda e etc
+
+não há como criar apenas uma função de consulta e fazer outras funções de verificação para cada classe?

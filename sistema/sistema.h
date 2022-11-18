@@ -1,3 +1,7 @@
+#ifdef _WIN32
+#include <direct.h>
+#endif
+
 #ifndef SISTEMA_H
 #define SISTEMA_H
 
@@ -7,6 +11,11 @@
 #include <fstream>
 #include <iomanip>
 #include <cstdlib>
+
+#include <bits/stdc++.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
 
 using namespace std;
 
@@ -25,7 +34,9 @@ public:
     Sistema();
     Sistema(QString nome, int cpf, QString email, int telefone);
     bool realizar_autenticacao(int cargo, QString email, QString senha);
-    void consultar_agenda_pasciente();
+    void consultar_agenda_paciente();
+
+
 
 };
 

@@ -13,7 +13,20 @@ Atendente::Atendente(QString nome, int cpf, QString email, int telefone, bool se
 }
 
 
-bool Atendente::cadastrar_paciente(string nome, string email, int telefone)
+void Atendente::cadastrar_usuario(string nome, Sistema usuario)
 {
+
+    string localpath = "";
+    if(nome == "Secretaria" && !Atendente::secretaria_geral)
+    {
+        cout<< "Erro, este usuário não tem permissão para criar um usuário" << endl;
+    }
+
+
+    localpath = filesystem::current_path();
+
+
+
+
 
 }

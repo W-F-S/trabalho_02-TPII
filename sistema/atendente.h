@@ -1,4 +1,4 @@
-#ifndef ATENDENTE_H
+d#ifndef ATENDENTE_H
 #define ATENDENTE_H
 
 #include "sistema.h"
@@ -11,10 +11,12 @@ private:
 
 public:
     Atendente();
-    //
+
     Atendente(QString nome, int cpf, QString email, int telefone, bool secretaria_geral);
 
-    bool cadastrar_paciente(QString, string, int);
+    void cadastrar_usuario(string cargo, Sistema usuario);
+
+
 };
 
 #endif // ATENDENTE_H

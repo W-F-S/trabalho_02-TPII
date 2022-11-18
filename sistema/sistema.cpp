@@ -49,3 +49,8 @@ Sistema::Sistema(QString nome, int cpf, QString email, int telefone)
     Sistema::num_matricula = gerar_num_matricula();
 }
 
+void Sistema::cadastrar_usuario(string cargo, Sistema usuario)
+{
+
+
+}

@@ -15,18 +15,18 @@ Atendente::Atendente(QString nome, int cpf, QString email, int telefone, bool se
 
 void Atendente::cadastrar_usuario(int tipo, Sistema usuario)
 {
-    string pasta;
     //verificando o tipo de usuario a ser criado
-    switch
+
+    switch(tipo)
     {
         case 0:
-            pasta = "atendente";
+            usuario.working_path.mkpath(QString::fromStdString("atendente"));
         break;
         case 1:
-            pasta = "medico";
+            usuario.working_path.mkpath(QString::fromStdString("medico"));
         break;
         case 2:
-            pasta = "paciente";
+            usuario.working_path.mkpath(QString::fromStdString("paciente"));
         break;
         default:
             cout << "erro";
@@ -35,13 +35,9 @@ void Atendente::cadastrar_usuario(int tipo, Sistema usuario)
     }
 
     //apenas atendentes gerais podem criar novas atendentes
-    string localpath = "";
     if(tipo == 0 && !Atendente::secretaria_geral)
     {
         cout<< "Erro, este usuário não tem permissão para criar um usuário" << endl;
-    }
-
-    localpath = filesystem::current_path(); //coletando to caminho do arquivo atual
-    filesystem::create_directory(loacalpath+"/"+pasta);
+    }        
 
 }

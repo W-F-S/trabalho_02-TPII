@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     atendente.cpp \
+    main.cpp \
     sistema.cpp
 
 HEADERS += \

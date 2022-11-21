@@ -52,8 +52,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../sistema/sistema.cpp 
-OBJECTS       = sistema.o
+SOURCES       = ../sistema/atendente.cpp \
+		../sistema/main.cpp \
+		../sistema/sistema.cpp 
+OBJECTS       = atendente.o \
+		main.o \
+		sistema.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -246,6 +250,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		../sistema/.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -266,8 +271,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		../sistema/sistema.pro ../sistema/sistema_global.h \
-		../sistema/sistema.h ../sistema/sistema.cpp
+		../sistema/sistema.pro ../sistema/atendente.h \
+		../sistema/sistema_global.h \
+		../sistema/sistema.h ../sistema/atendente.cpp \
+		../sistema/main.cpp \
+		../sistema/sistema.cpp
 QMAKE_TARGET  = sistema
 DESTDIR       = 
 TARGET        = libsistema.so.1.0.0
@@ -488,6 +496,7 @@ Makefile: ../sistema/sistema.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/l
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -702,6 +711,7 @@ Makefile: ../sistema/sistema.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/l
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
@@ -738,8 +748,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../sistema/sistema_global.h ../sistema/sistema.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../sistema/sistema.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../sistema/atendente.h ../sistema/sistema_global.h ../sistema/sistema.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../sistema/atendente.cpp ../sistema/main.cpp ../sistema/sistema.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -787,6 +797,16 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean 
 
 ####### Compile
+
+atendente.o: ../sistema/atendente.cpp ../sistema/atendente.h \
+		../sistema/sistema.h \
+		../sistema/sistema_global.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o atendente.o ../sistema/atendente.cpp
+
+main.o: ../sistema/main.cpp ../sistema/atendente.h \
+		../sistema/sistema.h \
+		../sistema/sistema_global.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../sistema/main.cpp
 
 sistema.o: ../sistema/sistema.cpp ../sistema/sistema.h \
 		../sistema/sistema_global.h

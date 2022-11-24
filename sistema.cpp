@@ -14,12 +14,12 @@ void Sistema::setNome(const QString &newNome)
     nome = newNome;
 }
 
-int Sistema::getCpf() const
+long Sistema::getCpf() const
 {
     return cpf;
 }
 
-void Sistema::setCpf(int newCpf)
+void Sistema::setCpf(long newCpf)
 {
     cpf = newCpf;
 }
@@ -34,22 +34,22 @@ void Sistema::setEmail(const QString &newEmail)
     email = newEmail;
 }
 
-int Sistema::getTelefone() const
+long Sistema::getTelefone() const
 {
     return telefone;
 }
 
-void Sistema::setTelefone(int newTelefone)
+void Sistema::setTelefone(long newTelefone)
 {
     telefone = newTelefone;
 }
 
-int Sistema::getTelefone_whatsapp() const
+long Sistema::getTelefone_whatsapp() const
 {
     return telefone_whatsapp;
 }
 
-void Sistema::setTelefone_whatsapp(int newTelefone_whatsapp)
+void Sistema::setTelefone_whatsapp(long newTelefone_whatsapp)
 {
     telefone_whatsapp = newTelefone_whatsapp;
 }
@@ -99,11 +99,34 @@ Sistema::Sistema()
     Sistema::telefone = 0;
 }
 
-Sistema::Sistema(QString nome, int cpf, QString email, int telefone)
+
+Sistema::Sistema(Sistema *usuario)
+{
+    Sistema::nome = usuario->getNome();
+    Sistema::cpf = usuario->getCpf();
+    Sistema::email = usuario->getEmail();
+    Sistema::telefone = usuario->getTelefone();
+    Sistema::telefone_whatsapp = usuario->getTelefone_whatsapp();
+    Sistema::num_matricula = usuario->getNum_matricula();
+}
+
+Sistema::Sistema(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp)
 {
     Sistema::nome = nome;
     Sistema::cpf = cpf;
     Sistema::email = email;
     Sistema::telefone = telefone;
+    Sistema::telefone_whatsapp = telefone_whatsapp;
     Sistema::num_matricula = gerar_num_matricula();
+}
+
+
+void Sistema::mostar_usuario()
+{
+        cout << Sistema::getNome().toStdString() << endl;
+        cout << to_string(Sistema::getCpf()) << endl;
+        cout << Sistema::getEmail().toStdString() << endl;
+        cout <<  to_string(Sistema::getTelefone()) << endl;
+        cout <<  to_string(Sistema::getTelefone_whatsapp()) << endl;
+        cout << to_string(Sistema::getNum_matricula()) << endl;
 }

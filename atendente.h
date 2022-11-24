@@ -2,22 +2,26 @@
 #define ATENDENTE_H
 #include <sistema.h>
 namespace dwp {
-
-
-class Atendente : private sistema{
+class Atendente : private Sistema{
 private:
 
     bool secretaria_geral;
+    long *medicos_assessorados;
     Sistema *usuario;
 
 
 public:
     Atendente();
+    Atendente(Sistema *usuario, bool geral, long *medicos);
+    Atendente(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, bool secretaria_geral, long *medicos);
 
-    Atendente(QString nome, int cpf, QString email, int telefone, bool secretaria_geral);
+    void cadastrar_usuario(int cargo, Sistema *usuario);
+    bool cadastrar_atendente(Sistema *usuario, bool geral, long *medicos);
+    bool cadastrar_atendente(Atendente *atendente);
 
-    void cadastrar_usuario(int cargo, Sistema usuario);
-
+    bool get_Secretaria_geral();
+    long *get_medicos_assessorados();
+    void mostrar_dados_atendente();
 
 };
 }

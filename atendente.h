@@ -18,6 +18,11 @@ public:
     void cadastrar_usuario(int cargo, Sistema *usuario);
     bool cadastrar_atendente(Sistema *usuario, bool geral, long *medicos);
     bool cadastrar_atendente(Atendente *atendente);
+    Atendente* get_dados_atendente(int id);
+    void set_Secretaria_geral(bool resp);
+
+
+    void set_Medicos_acessorados(long *cpfs);
 
     bool get_Secretaria_geral();
     long *get_medicos_assessorados();

@@ -19,22 +19,21 @@ int main(int argc, char *argv[])
     };
 
 
-    Atendente *novo = new Atendente{
-      usuario,
+
+/**    Atendente *novo = new Atendente{
+            usuario,
             true,
             cpfs
-    };
+   };*/
 
-   // novo -> mostrar_dados_atendente();
-    novo ->cadastrar_atendente(novo);
+    Atendente *novo = new Atendente{};
 
-
-
-
+    //novo -> mostrar_dados_atendente();
+   // novo ->cadastrar_atendente(novo);
 
 
-
-
+    novo = novo->get_dados_atendente(13);
+    novo ->mostrar_dados_atendente();
 /**
     QDir path{};
     qDebug() << path.path();

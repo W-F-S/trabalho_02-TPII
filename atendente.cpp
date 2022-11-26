@@ -11,7 +11,7 @@ Atendente::Atendente(Sistema *usuario, bool geral, long *medicos)
     Atendente::medicos_assessorados = new long[3];
     Atendente::medicos_assessorados = medicos;
     Atendente::secretaria_geral = geral,
- //usuario -> mostar_usuario();
+            //usuario -> mostar_usuario();
             Atendente::usuario = new Sistema{*usuario};
 }
 
@@ -56,24 +56,26 @@ void Atendente::cadastrar_usuario(int tipo, Sistema *usuario)
     }
 
     //apenas atendentes gerais podem criar novas atendentes
-
     if(tipo == 0 && !Atendente::secretaria_geral)
     {
         cout<< "Erro, este usuário não tem permissão para criar um usuário" << endl;
         exit(1);
     }
-
-
 }
 
+/**
+ * Método que cadastra uma funcionaria em um arquivo, os dados cadastrados
+ * são os parâmetros da funcionario
+ *
+ * @brief Atendente::cadastrar_atendente
+ * @param atendente - atendente que deve ser cadastrada
+ * @return true - caso o cadastro tenha executado com sucesso
+ */
 bool Atendente::cadastrar_atendente(Atendente *atendente)
 {
     QDir path{};
     QString filename{"dados.txt"};
     QFile arquivo{filename};
-    QTextStream in{&arquivo};
-
-
 
     if(!get_Secretaria_geral())
     {
@@ -89,6 +91,8 @@ bool Atendente::cadastrar_atendente(Atendente *atendente)
     }
     path.setCurrent(QString::fromStdString("./atendente/")+QString::number(atendente->usuario->getNum_matricula()));
     cout << path.path().toStdString();
+
+    //por padrão vamos sobreescrever dados existentes
     if(arquivo.exists())
     {
         cout << "ATENÇÃO:: já existe um arquivo de dados no diretorio do usuário, gostaria de sobreescrever os dados existentes?" << endl;
@@ -101,6 +105,8 @@ bool Atendente::cadastrar_atendente(Atendente *atendente)
 
         return false;
     }
+
+    QTextStream in{&arquivo};
 
     in << atendente->usuario->getNome()                                      + "\n" +
           QString::number(atendente->usuario->getCpf())                      + "\n" +
@@ -115,38 +121,88 @@ bool Atendente::cadastrar_atendente(Atendente *atendente)
 
     cout << "arquivo de dados da secretaria criada" << endl;
     arquivo.close();
-    //)
-    /**   QString dados("");
-    dados.append(atendente->getNome()                                      + "\n" +
-                 QString::number(atendente->getCpf())                      + "\n" +
-                 atendente->getEmail()                                     + "\n" +
-                 QString::number(atendente->getTelefone())                 + "\n" +
-                 QString::number(atendente->getTelefone_whatsapp())        + "\n" +
-                 QString::number(atendente->getNum_matricula())            + "\n" +
-                 atendente->get_Secretaria_geral()                         + "\n" +
-                 QString::number(atendente->get_medicos_assessorados()[0]) + "," +
-                 QString::number(atendente->get_medicos_assessorados()[1]) + "," +
-                 QString::number(atendente->get_medicos_assessorados()[2])
-    );**/
-
-
-
-
-
 
     return true;
 }
+
+//TODO: temos que colocar as variaveis long em longlong já que long no c++ vai até 4294967295
+
+Atendente* Atendente::get_dados_atendente(int id)
+{
+    QDir path{};
+    QString filename{"dados.txt"};
+    QFile arquivo{filename};
+    Atendente *retornar = new Atendente();
+    bool ok;
+    QStringList lista_acessorados;
+    long *cpfs = new long[3];
+
+    if(!path.exists("atendente/"+QString::number(id))){
+        cout << "Atenção. Pasta \"Atendentes\" inexistente ou atendente de id:" << id << "não existe." << endl;
+        exit(1);
+    }
+
+    if(!path.setCurrent(QString::fromStdString("./atendente/")+QString::number(id)))
+    {
+        cout << "Erro ao tentar abrir a pasta da funcionaria" << endl;
+        exit(1);
+    }
+
+    if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        exit(1);
+        //return false;
+    }
+    QTextStream in{&arquivo};
+
+    retornar->usuario->setNome(in.readLine());
+
+    retornar->usuario->setCpf(in.readLine().toLong());
+    retornar->usuario->setEmail(in.readLine());
+    retornar->usuario->setTelefone(in.readLine().toLong());
+    retornar->usuario->setTelefone_whatsapp(in.readLine().toLong());
+    retornar->usuario->setNum_matricula(in.readLine().toInt(&ok, 10));
+    retornar->set_Secretaria_geral(in.readLine().toInt(&ok, 2));
+
+    lista_acessorados = in.readLine().split(',');
+    cpfs[0] = lista_acessorados[0].toLong();
+    cpfs[1] = lista_acessorados[1].toLong();
+    cpfs[2] = lista_acessorados[2].toLong();
+    retornar->set_Medicos_acessorados(cpfs);
+
+    arquivo.close();
+    return retornar;
+}
+
+//bool Atendente::exist()
 
 bool Atendente::get_Secretaria_geral()
 {
     return Atendente::secretaria_geral;
 }
 
+void Atendente::set_Secretaria_geral(bool resp)
+{
+    Atendente::secretaria_geral = resp;
+}
+
+
 long *Atendente::get_medicos_assessorados()
 {
     return Atendente::medicos_assessorados;
 }
 
+void Atendente::set_Medicos_acessorados(long *resp)
+{
+    Atendente::medicos_assessorados = resp;
+}
+
+/**
+ * @brief Atendente::mostrar_dados_atendente
+ * mostra na tela todos os dados da atendente
+ * inclusive os medicos assessorados
+ */
 void Atendente::mostrar_dados_atendente()
 {
     cout << Atendente::usuario->getNome().toStdString() << endl;
@@ -160,8 +216,4 @@ void Atendente::mostrar_dados_atendente()
     cout << Atendente::get_medicos_assessorados()[1] << endl;
     cout << Atendente::get_medicos_assessorados()[2]<< endl;
 }
-
-
-
-
 }

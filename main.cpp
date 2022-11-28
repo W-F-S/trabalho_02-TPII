@@ -10,13 +10,15 @@ int main(int argc, char *argv[])
     cpfs[1] = 55598745841;
     cpfs[2] = 45685275951;
 
-    Sistema *usuario = new Sistema{
+    QString* agenda = new QString{"testando agenda arquivo \n ................"};
+
+ /**   Sistema *usuario = new Sistema{
         "pessoa",
         15857425983,
         "user@email.com",
         62668475991,
         62668475991
-    };
+    };*/
 
 
 
@@ -33,7 +35,9 @@ int main(int argc, char *argv[])
 
 
     novo = novo->get_dados_atendente(13);
-    novo ->mostrar_dados_atendente();
+    //novo ->mostrar_dados_atendente();
+
+    novo->adicionar_agenda(agenda);
 /**
     QDir path{};
     qDebug() << path.path();

@@ -11,8 +11,8 @@ Atendente::Atendente(Sistema *usuario, bool geral, long *medicos)
     Atendente::medicos_assessorados = new long[3];
     Atendente::medicos_assessorados = medicos;
     Atendente::secretaria_geral = geral,
-    //usuario -> mostar_usuario();
-    Atendente::usuario = new Sistema{*usuario};
+            //usuario -> mostar_usuario();
+            Atendente::usuario = new Sistema{*usuario};
 }
 
 Atendente::Atendente(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, bool secretaria_geral, long *medicos)
@@ -34,23 +34,23 @@ void Atendente::cadastrar_usuario(int tipo, Sistema *usuario)
     case 0:
         if(path.mkdir(QString::fromStdString("atendente")))
         {
-            std::cout << "sucesso ao criar pasta atendente";
+            cout << "sucesso ao criar pasta atendente";
         }
         break;
     case 1:
         if(path.mkdir(QString::fromStdString("medico")))
         {
-            std::cout << "sucesso ao criar pasta medico";
+            cout << "sucesso ao criar pasta medico";
         }
         break;
     case 2:
         if(path.mkdir(QString::fromStdString("paciente")))
         {
-            std::cout << "sucesso ao criar pasta pasciente";
+            cout << "sucesso ao criar pasta pasciente";
         }
         break;
     default:
-        std::cout << "erro ao tentar criar pasta de usuario" << endl;
+        cout << "erro ao tentar criar pasta de usuario" << endl;
         exit(1);
         break;
     }
@@ -58,7 +58,7 @@ void Atendente::cadastrar_usuario(int tipo, Sistema *usuario)
     //apenas atendentes gerais podem criar novas atendentes
     if(tipo == 0 && !Atendente::secretaria_geral)
     {
-        std::cout<< "Erro, este usuário não tem permissão para criar um usuário" << endl;
+        cout<< "Erro, este usuário não tem permissão para criar um usuário" << endl;
         exit(1);
     }
 }
@@ -79,29 +79,29 @@ bool Atendente::cadastrar_atendente(Atendente *atendente)
 
     if(!get_Secretaria_geral())
     {
-        std::cout << "erro, você não tem permissões para cadastrar uma secretaria" << endl;
+        cout << "erro, você não tem permissões para cadastrar uma secretaria" << endl;
         return false;
     }
 
-    std::cout << "criando pasta secretaria" << endl;
+    cout << "criando pasta secretaria" << endl;
 
     if(path.mkpath(QString::fromStdString("atendente/")+QString::number(atendente->usuario->getNum_matricula())))
     {
-        std::cout << "Pasta da secretaria de id:" + std::to_string(atendente->getNum_matricula()) + " criada" << endl;
+        cout << "Pasta da secretaria de id:" + to_string(atendente->getNum_matricula()) + " criada" << endl;
     }
     path.setCurrent(QString::fromStdString("./atendente/")+QString::number(atendente->usuario->getNum_matricula()));
-    std::cout << path.path().toStdString();
+    cout << path.path().toStdString();
 
     //por padrão vamos sobreescrever dados existentes
     if(arquivo.exists())
     {
-        std::cout << "ATENÇÃO:: já existe um arquivo de dados no diretorio do usuário, precione qualquer tecla para sobreescrever o arquivo atual" << endl;
-        getchar();
+        cout << "ATENÇÃO:: já existe um arquivo de dados no diretorio do usuário, gostaria de sobreescrever os dados existentes?" << endl;
         arquivo.remove();
+        getchar();
     }
     if (!arquivo.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        std::cout << "Erro ao tentar abrir o arquivo em modo de escrita" << endl;
+        cout << "Erro ao tentar abrir o arquivo em modo de escrita" << endl;
 
         return false;
     }
@@ -114,105 +114,57 @@ bool Atendente::cadastrar_atendente(Atendente *atendente)
           QString::number(atendente->usuario->getTelefone())                 + "\n" +
           QString::number(atendente->usuario->getTelefone_whatsapp())        + "\n" +
           QString::number(atendente->usuario->getNum_matricula())            + "\n" +
-          QString::number(atendente->get_Secretaria_geral())          + "\n" +
-          QString::number(atendente->get_medicos_assessorados()[0])   + "," +
-          QString::number(atendente->get_medicos_assessorados()[1])   + "," +
-          QString::number(atendente->get_medicos_assessorados()[2]);
+          QString::number(atendente->get_Secretaria_geral())                         + "\n" +
+          QString::number(atendente->get_medicos_assessorados()[0]) + "," +
+            QString::number(atendente->get_medicos_assessorados()[1]) + "," +
+            QString::number(atendente->get_medicos_assessorados()[2]);
 
-    std::cout << "arquivo de dados da secretaria criada" << endl;
+    cout << "arquivo de dados da secretaria criada" << endl;
     arquivo.close();
+    //)
+    /**   QString dados("");
+    dados.append(atendente->getNome()                                      + "\n" +
+                 QString::number(atendente->getCpf())                      + "\n" +
+                 atendente->getEmail()                                     + "\n" +
+                 QString::number(atendente->getTelefone())                 + "\n" +
+                 QString::number(atendente->getTelefone_whatsapp())        + "\n" +
+                 QString::number(atendente->getNum_matricula())            + "\n" +
+                 atendente->get_Secretaria_geral()                         + "\n" +
+                 QString::number(atendente->get_medicos_assessorados()[0]) + "," +
+                 QString::number(atendente->get_medicos_assessorados()[1]) + "," +
+                 QString::number(atendente->get_medicos_assessorados()[2])
+    );**/
 
     return true;
-}
-
-
-bool Atendente::adicionar_agenda(QString *agenda)
-{
-    QDir *path = Atendente::set_path();
-    QString tmp{};
-    QFile arquivo{"agenda.txt"};
-
-    if(!arquivo.exists())
-    {
-        std::cout << "Atenção. Agenda da atendente não existe. Criando arquivo..." << endl;
-
-    }
-    if (!arquivo.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        std::cout << "Erro ao criar arquivo;" << endl;
-        return false;
-    }
-
-    QTextStream in{&arquivo};
-
-    while(!arquivo.atEnd())
-    {
-         in.seek(EOF);
-    }
-
-    in << + "[\n"
-          + *agenda
-          + "\n]";
-
-    arquivo.close();
-    return true;
-}
-
-/**
-QString* formatar_agenda()
-{
-    QString *agenda = new QString();
-    int dia;
-
-    cin >>
-}*/
-
-
-/**
- * @brief Atendente::set_path
- * @return path do id da funcionaria.
- */
-QDir *Atendente::set_path()
-{
-    QDir *path = new QDir();
-
-    int id = Atendente::usuario->getNum_matricula();
-
-    if(!path->absolutePath().contains("atendente/" + QString::number(id)) && !path->setCurrent(QString::fromStdString("./atendente/") + QString::number(id)))
-    {
-        std::cout << "Path atual: " << path->absolutePath().toStdString() << endl;
-        std::cout << "Atenção. Pasta \"Atendentes\" inexistente ou atendente de id:" << id << "não existe." << endl;
-        exit(1);
-    }
-
-    std::cout << path->path().toStdString();
-    return path;
 }
 
 //TODO: temos que colocar as variaveis long em longlong já que long no c++ vai até 4294967295
+
 Atendente* Atendente::get_dados_atendente(int id)
 {
     QDir path{};
     QString filename{"dados.txt"};
     QFile arquivo{filename};
+    QString dado;
     Atendente *retornar = new Atendente();
     bool ok;
     QStringList lista_acessorados;
-    long *cpfs = new long[3];
+    long *cpfs = new lon[3];
 
+    if(!path.exists("atendente/"+QString::number(id))){
+        cout << "Atenção. Pasta \"Atendentes\" inexistente ou atendente de id:" << id << "não existe." << endl;
+        exit(1);
+    }
 
     if(!path.setCurrent(QString::fromStdString("./atendente/")+QString::number(id)))
     {
-        std::cout << "Erro ao tentar abrir a pasta da funcionaria" << endl;
-        if(!path.exists("atendente/"+QString::number(id))){
-            std::cout << "Atenção. Pasta \"Atendentes\" inexistente ou atendente de id:" << id << "não existe." << endl;
-        }
+        cout << "Erro ao tentar abrir a pasta da funcionaria" << endl;
         exit(1);
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        std::cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
         exit(1);
         //return false;
     }
@@ -220,6 +172,10 @@ Atendente* Atendente::get_dados_atendente(int id)
 
     retornar->usuario->setNome(in.readLine());
 
+
+
+
+   // QString cpf =
     retornar->usuario->setCpf(in.readLine().toLong());
     retornar->usuario->setEmail(in.readLine());
     retornar->usuario->setTelefone(in.readLine().toLong());
@@ -227,17 +183,19 @@ Atendente* Atendente::get_dados_atendente(int id)
     retornar->usuario->setNum_matricula(in.readLine().toInt(&ok, 10));
     retornar->set_Secretaria_geral(in.readLine().toInt(&ok, 2));
 
-    lista_acessorados = in.readLine().split(',');
-    cpfs[0] = lista_acessorados[0].toLong();
-    cpfs[1] = lista_acessorados[1].toLong();
-    cpfs[2] = lista_acessorados[2].toLong();
-    retornar->set_Medicos_acessorados(cpfs);
 
-    arquivo.close();
+   lista_acessorados = in.readLine().split(',');;
+    cpfs[0] = lista_acessorados.at(0).toLong();
+    cpfs[1] = lista_acessorados.at(0).toLong();
+    cpfs[2] = lista_acessorados.at(0).toLong();
+
+    retornar->set
+    retornar->mostrar_dados_atendente();
+   // retornar-> in.readLine() == QString::fromStdString "true" );
+
+
     return retornar;
 }
-
-
 
 //bool Atendente::exist()
 
@@ -257,11 +215,10 @@ long *Atendente::get_medicos_assessorados()
     return Atendente::medicos_assessorados;
 }
 
-void Atendente::set_Medicos_acessorados(long *resp)
+void Atendente::set_medicos_assessorados(long *cpfs)
 {
-    Atendente::medicos_assessorados = resp;
+    Atendente::medicos_assessorados = cpfs ;
 }
-
 /**
  * @brief Atendente::mostrar_dados_atendente
  * mostra na tela todos os dados da atendente
@@ -269,15 +226,19 @@ void Atendente::set_Medicos_acessorados(long *resp)
  */
 void Atendente::mostrar_dados_atendente()
 {
-    std::cout << Atendente::usuario->getNome().toStdString() << endl;
-    std::cout << std::to_string(Atendente::usuario->getCpf()) << endl;
-    std::cout << Atendente::usuario->getEmail().toStdString() << endl;
-    std::cout <<  std::to_string(Atendente::usuario->getTelefone()) << endl;
-    std::cout <<  std::to_string(Atendente::usuario->getTelefone_whatsapp()) << endl;
-    std::cout << std::to_string(Atendente::usuario->getNum_matricula()) << endl;
-    std::cout << std::to_string(Atendente::get_Secretaria_geral()) << endl;
-    std::cout << Atendente::get_medicos_assessorados()[0] << endl;
-    std::cout << Atendente::get_medicos_assessorados()[1] << endl;
-    std::cout << Atendente::get_medicos_assessorados()[2]<< endl;
+    cout << Atendente::usuario->getNome().toStdString() << endl;
+    cout << to_string(Atendente::usuario->getCpf()) << endl;
+    cout << Atendente::usuario->getEmail().toStdString() << endl;
+    cout <<  to_string(Atendente::usuario->getTelefone()) << endl;
+    cout <<  to_string(Atendente::usuario->getTelefone_whatsapp()) << endl;
+    cout << to_string(Atendente::usuario->getNum_matricula()) << endl;
+    cout << to_string(Atendente::get_Secretaria_geral()) << endl;
+    cout << Atendente::get_medicos_assessorados()[0] << endl;
+    cout << Atendente::get_medicos_assessorados()[1] << endl;
+    cout << Atendente::get_medicos_assessorados()[2]<< endl;
 }
+
+
+
+
 }

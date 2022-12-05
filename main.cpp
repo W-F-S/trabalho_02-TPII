@@ -10,45 +10,42 @@ int main(int argc, char *argv[])
     cpfs[1] = 55598745841;
     cpfs[2] = 45685275951;
 
-    QString* agenda = new QString{"testando agenda arquivo \n ................"};
+    long *cpf2 = new long[3];
+    cpf2[0] = 45624583589;
+    cpfs[1] = 79513875548;
+    cpfs[2] = 46843354683;
 
- /**   Sistema *usuario = new Sistema{
-        "pessoa",
-        15857425983,
-        "user@email.com",
-        62668475991,
-        62668475991
-    };*/
+    Sistema *usuario = new Sistema{
+            "atendente pessoa",
+            15857425983,
+            "user@email.com",
+            62668475991,
+            62668475991,
+            "123"
+    };
 
+    Sistema *usuario2 = new Sistema{
+            "atendente pessoa",
+            15857425983,
+            "user@email.com",
+            62668475991,
+            62668475991,
+            "321"
+    };
 
-
-/**    Atendente *novo = new Atendente{
+    Atendente *novo = new Atendente{
             usuario,
             true,
             cpfs
-   };*/
+    };
 
-    Atendente *novo = new Atendente{};
-
-    //novo -> mostrar_dados_atendente();
-   // novo ->cadastrar_atendente(novo);
+    Medico *novo2 = new Medico{usuario2, "radiologista", true, cpfs};
 
 
-    novo = novo->get_dados_atendente(13);
-    //novo ->mostrar_dados_atendente();
+    novo->cadastrar_medico(novo2);
+    novo->cadastrar_atendente(novo);
 
-    novo->adicionar_agenda(agenda);
-/**
-    QDir path{};
-    qDebug() << path.path();
+    QString dados = novo->verificar_usuario(15857425983);
+    cout << dados.toStdString();
 
-    cout << path.mkdir(QString::fromStdString("tendente"));
-**/
-
-
-   /* QApplication a(argc, argv);
-    MainWindow w;
-    w.show();*/
-
-    //return a.exec();
 }

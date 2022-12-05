@@ -64,32 +64,42 @@ void Sistema::setNum_matricula(int newNum_matricula)
     num_matricula = newNum_matricula;
 }
 
+void Sistema::setSenha(QString senha)
+{
+    Sistema::senha = senha;
+}
+
+QString Sistema::getSenha()
+{
+    return Sistema::senha;
+
+}
+
 int Sistema::gerar_num_matricula(){
     int num_matricula = 1;
-    string codigo;
-    ifstream infile;
-    ofstream outfile;
+    QFile infile("numero_de_matricula.txt") ;
 
-    infile.open("numero_de_matricula");
-    if( !infile )
-    {
-//      cout << "criando arquivo de numero de matricula" << endl;
-      outfile.open("numero_de_matricula");
-      outfile << num_matricula;
-      outfile.close();
+    if(!infile.exists()){
+        cout << "arquivo inexistente" << endl;
     }
-    else
+
+    if( !infile.open(QIODevice::ReadOnly | QIODevice::Text) )
     {
-     getline(infile, codigo );
-     num_matricula = stoi(codigo);
-     num_matricula += 1;
-     infile.close();
-     outfile.open("numero_de_matricula"); //reescrevendo o arquivo original;
-     outfile<<num_matricula;
-     outfile.close();
+        cout << "erro ao abrir o arquivo de ids" << endl;
     }
+    QTextStream in{&infile};
+
+    num_matricula = in.readLine().toInt();
+    num_matricula += 1;
+    infile.close();
+    infile.open(QIODevice::WriteOnly | QIODevice::Text);
+    in << num_matricula;
+    infile.close();
     return num_matricula;
 }
+
+
+
 
 Sistema::Sistema()
 {
@@ -97,8 +107,9 @@ Sistema::Sistema()
     Sistema::cpf = 0;
     Sistema::email = "";
     Sistema::telefone = 0;
+    Sistema::telefone_whatsapp = 0;
+    Sistema::senha = "";
 }
-
 
 Sistema::Sistema(Sistema *usuario)
 {
@@ -108,9 +119,10 @@ Sistema::Sistema(Sistema *usuario)
     Sistema::telefone = usuario->getTelefone();
     Sistema::telefone_whatsapp = usuario->getTelefone_whatsapp();
     Sistema::num_matricula = usuario->getNum_matricula();
+
 }
 
-Sistema::Sistema(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp)
+Sistema::Sistema(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha)
 {
     Sistema::nome = nome;
     Sistema::cpf = cpf;
@@ -118,6 +130,7 @@ Sistema::Sistema(QString nome, long cpf, QString email, long telefone, long tele
     Sistema::telefone = telefone;
     Sistema::telefone_whatsapp = telefone_whatsapp;
     Sistema::num_matricula = gerar_num_matricula();
+    Sistema::senha = senha;
 }
 
 

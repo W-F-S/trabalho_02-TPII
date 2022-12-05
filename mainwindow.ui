@@ -10,78 +10,77 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButtonMostrar">
+   <widget class="QPushButton" name="pushButtonEntrar">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>110</y>
+      <x>290</x>
+      <y>160</y>
       <width>107</width>
       <height>29</height>
      </rect>
     </property>
     <property name="text">
-     <string>Logar</string>
+     <string>Entrar</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEditSaida">
+   <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>40</x>
       <y>200</y>
-      <width>601</width>
-      <height>281</height>
+      <width>661</width>
+      <height>291</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>20</y>
-      <width>371</width>
-      <height>28</height>
+      <x>130</x>
+      <y>70</y>
+      <width>421</width>
+      <height>81</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>60</y>
-      <width>371</width>
-      <height>28</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>20</y>
-      <width>81</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Usuário</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>60</y>
-      <width>81</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Senha</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Usuário</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEditUsuario"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Senha</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEditSenha"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -90,7 +89,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>32</height>
     </rect>
    </property>
   </widget>

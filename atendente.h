@@ -14,29 +14,31 @@ class Atendente : public Sistema
     public:
         Atendente();
         Atendente(Sistema *usuario, bool geral, long *medicos);
-        Atendente(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, bool secretaria_geral, long *medicos);
-
-        void cadastrar_usuario(int cargo, Sistema *usuario);
-        bool cadastrar_atendente(Sistema *usuario, bool geral, long *medicos);
-        bool cadastrar_atendente(Atendente *atendente);
-
-
-        static Atendente* get_dados_atendente(int id);
-
-
-        void set_Secretaria_geral(bool resp);
-
-
-        void set_Medicos_acessorados(long *cpfs);
+        Atendente(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha, bool secretaria_geral, long *medicos);
 
         bool get_Secretaria_geral();
         long *get_medicos_assessorados();
-        void mostrar_dados_atendente();
+        void set_Secretaria_geral(bool resp);
+        void set_Medicos_acessorados(long *cpfs);
+        Atendente* buscar_atendente(int id);
+        Medico* buscar_medico(int id);
 
-        bool adicionar_agenda(QString *agenda);
+        bool deletar_atendente(int id);
 
+        QTextStream* cadastrar_usuario(Sistema* usuario);
+        bool cadastrar_atendente(Sistema *usuario, bool geral, long *medicos);
+        bool cadastrar_atendente(Atendente *atendente);
+        bool cadastrar_medico(Medico *medico);
 
-        QDir *set_path();
+        QString adicionar_agenda(QString *agenda);
+        QString adicionar_lista_usuarios(int tipo, int id,  long cpf, QString senha);
+
+        QString mostrar_dados();
+        QString set_path(int id);
+
+        QString verificar_usuario(int id, int senha);
+        QString verificar_usuario(long cpf);
+
 };
 }
 #endif // ATENDENTE_H

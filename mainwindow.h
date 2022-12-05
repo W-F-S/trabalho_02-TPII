@@ -1,8 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include<sistema.h>
-#include <QMainWindow>
 
+#include <QMainWindow>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -16,10 +15,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButtonMostrar_clicked();
+    void on_pushButtonEntrar_clicked();
 
 private:
     Ui::MainWindow *ui;
-    dwp::Sistema p;
 };
 #endif // MAINWINDOW_H

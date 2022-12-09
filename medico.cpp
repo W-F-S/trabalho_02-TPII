@@ -22,14 +22,14 @@ void Medico::setParticular(bool newParticular)
     particular = newParticular;
 }
 
-Sistema Medico::getUsuario() const
+long Medico::getCrm()
 {
-    return *usuario;
+    return Medico::crm;
 }
 
-void Medico::setUsuario(Sistema *newUsuario)
+void Medico::setCrm(long crm)
 {
-    usuario = newUsuario;
+    Medico::particular = crm;
 }
 
 long *Medico::getPascientes() const
@@ -46,43 +46,47 @@ Medico::Medico()
 {
     Medico::especialidade = "";
     Medico::particular = false;
-    Medico::usuario = new Sistema();
     Medico::pascientes = new long[3];
-
 }
 
-Medico::Medico(Sistema *usuario, QString especialidade,  bool particular, long *pascientes)
+Medico::Medico(Sistema *usuario, QString especialidade,  bool particular, long crm, long *pascientes)
 {
-    Medico::usuario = usuario;
+    Sistema::setNome(usuario->getNome());
+    Sistema::setCpf(usuario->getCpf());
+    Sistema::setEmail(usuario->getEmail());
+    Sistema::setTelefone(usuario->getTelefone());
+    Sistema::setTelefone_whatsapp(usuario->getTelefone_whatsapp());
+    Sistema::setNum_matricula(usuario->getNum_matricula());
+    Sistema::setSenha(usuario->getSenha());
     Medico::especialidade = especialidade;
     Medico::particular = particular;
+    Medico::crm = crm;
+
     Medico::pascientes = pascientes;
 }
 
-Medico::Medico(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha, QString especialidade,  bool particular, long *pascientes)
+Medico::Medico(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha, QString especialidade,  bool particular, long crm, long *pascientes)
 {
-    Medico::usuario = new Sistema
-    {
-            nome,
-            cpf,
-            email,
-            telefone,
-            telefone_whatsapp,
-            senha
-    };
+    Sistema::setNome(nome);
+    Sistema::setCpf(cpf);
+    Sistema::setEmail(email);
+    Sistema::setTelefone(telefone);
+    Sistema::setTelefone_whatsapp(telefone_whatsapp);
+    Sistema::setSenha(senha);
     Medico::especialidade = especialidade;
     Medico::particular = particular;
+    Medico::crm = crm;
     Medico::pascientes = pascientes;
 }
 
 void Medico::mostrar_dados()
 {
-    cout << Medico::usuario->getNome().toStdString() << endl;
-    cout << to_string(Medico::usuario->getCpf()) << endl;
-    cout << Medico::usuario->getEmail().toStdString() << endl;
-    cout <<  to_string(Medico::usuario->getTelefone()) << endl;
-    cout <<  to_string(Medico::usuario->getTelefone_whatsapp()) << endl;
-    cout << to_string(Medico::usuario->getNum_matricula()) << endl;
+    cout << Medico::getNome().toStdString() << endl;
+    cout << to_string(Medico::getCpf()) << endl;
+    cout << Medico::getEmail().toStdString() << endl;
+    cout <<  to_string(Medico::getTelefone()) << endl;
+    cout <<  to_string(Medico::getTelefone_whatsapp()) << endl;
+    cout << to_string(Medico::getNum_matricula()) << endl;
     cout << Medico::getEspecialidade().toStdString() << endl;
     cout << Medico::getPascientes()[0] << endl;
     cout << Medico::getPascientes()[1] << endl;

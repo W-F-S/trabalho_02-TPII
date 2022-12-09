@@ -8,8 +8,6 @@ class Atendente : public Sistema
     private:
         bool secretaria_geral;
         long *medicos_assessorados;
-        Sistema *usuario;
-
 
     public:
         Atendente();
@@ -22,8 +20,7 @@ class Atendente : public Sistema
         void set_Medicos_acessorados(long *cpfs);
         Atendente* buscar_atendente(int id);
         Medico* buscar_medico(int id);
-
-        bool deletar_atendente(int id);
+        bool deletar_usuario(int id);
 
         QTextStream* cadastrar_usuario(Sistema* usuario);
         bool cadastrar_atendente(Sistema *usuario, bool geral, long *medicos);

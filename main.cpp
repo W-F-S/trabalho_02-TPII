@@ -5,6 +5,7 @@
 using namespace dwp;
 int main(int argc, char *argv[])
 {
+
     long *cpfs = new long[3];
     cpfs[0] = 45875614558;
     cpfs[1] = 55598745841;
@@ -39,13 +40,17 @@ int main(int argc, char *argv[])
             cpfs
     };
 
-    Medico *novo2 = new Medico{usuario2, "radiologista", true, cpfs};
+   // Medico *novo2 = new Medico{usuario2, "radiologista", true, 12345678986, cpfs};
 
 
-    novo->cadastrar_medico(novo2);
-    novo->cadastrar_atendente(novo);
+    /**novo->cadastrar_medico(novo2);
+    novo->cadastrar_atendente(novo);*/
 
-    QString dados = novo->verificar_usuario(15857425983);
-    cout << dados.toStdString();
+   // QString dados = novo->verificar_usuario(15857425983);
+  //  cout << dados.toStdString();
+
+
+    Atendente *deletando_user = new Atendente{ usuario,   true, cpfs };
+   deletando_user->deletar_usuario(18);
 
 }

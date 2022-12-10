@@ -1,4 +1,8 @@
 #include "atendente.h"
+//visando suporte para windows, devemos usar fromNativeSeparators() e toNativeSeparators().
+//será necessário implementar algum tipo de exception no código
+//TODO: temos que colocar as variaveis long em longlong já que long no c++ vai até 4294967295
+
 namespace dwp{
 Atendente::Atendente()
 {
@@ -181,7 +185,6 @@ bool Atendente::cadastrar_medico(Medico *medico)
     return true;
 }
 
-//TODO: temos que colocar as variaveis long em longlong já que long no c++ vai até 4294967295
 Atendente* Atendente::buscar_atendente(int id)
 {
     QDir path{};
@@ -243,26 +246,37 @@ bool Atendente::deletar_usuario(int id)
 
     path.setCurrent(caminho);
 
-    cout << "Atenção, a seguinte pasta e seus dados será deleta. você está de acordo?"<< endl;
+    cout << "Atenção, a seguinte pasta e seus dados será deleta. você está de acordo?[s/N]"<< endl;
     qDebug() << path.currentPath();
     cin >> resp;
-    if(!(resp == 'S'))
+
+    if(!(resp == 's'))
     {
         cout << "operação cancelada" << endl;
         return false;
     }
     if(!path.removeRecursively())
     {
-        qDebug() << "Atenção. Houve algum erro ao tentar deletar as pastas";
+        qDebug() << "Atenção. Houve algum erro ao tentar deletar a pasta";
         if(path.exists())
         {
-            qDebug() << "pastas ainda existem";
+            path.cdUp();
+            qDebug() << "pastas ainda existem. Tentando novamente";
+//            qDebug() << path.currentPath();
+            if(!path.rmdir(QString::number(id)))
+            {
+                qDebug() << "Erro ao tentar deletar a pasta novamente";
+            }else{
+                qDebug() << "Pasta deletada";
+                return true;
+            }
         }
     }else
     {
         cout << "Pasta deletada" << endl;
     }
     path.setCurrent(raiz);
+    remover_lista_usuarios(id);
     return true;
 }
 
@@ -327,17 +341,20 @@ Medico* Atendente::buscar_medico(int id)
  * @param agenda - dados que devem ser adicionados a agenda do usuário
  * @return QString - " " caso não seja possível criar agenda
  */
-QString Atendente::adicionar_agenda(QString *agenda)
+QString Atendente::adicionar_agenda( int id, QString *agenda)
 {
     QFile arquivo{"agenda.txt"};
+    QDir path{};
+
+    path.setCurrent(Atendente::set_path(id));
 
     if(!arquivo.exists())
     {
-        cout << "Atenção. Agenda da atendente não existe. Criando arquivo..." << endl;
+        qCritical() << "Atenção. Agenda da atendente não existe. Criando arquivo...";
     }
     if (!arquivo.open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        cout << "Erro ao criar arquivo;" << endl;
+        qCritical() << "Erro ao ler o arquivo;";
         return " ";
     }
     QTextStream in{&arquivo};
@@ -382,6 +399,74 @@ QString Atendente::adicionar_lista_usuarios(int tipo, int id,long cpf, QString s
     in << tipo << "," << id << "," << cpf << "," << senha << "\n";
     arquivo.close();
     return "true";
+}
+
+
+QString *Atendente::get_agenda(int id)
+{
+    QFile arquivo{"agenda.txt"};
+    QDir path{};
+    QString *agenda = new QString{""};
+
+    path.setCurrent(Atendente::set_path(id));
+
+    if(!arquivo.exists())
+    {
+        qCritical() << "Atenção. Agenda da atendente não existe";
+        return agenda;
+    }
+    if (!arquivo.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        qCritical() << "Erro ao criar arquivo";
+        return agenda;
+    }
+    QTextStream in{&arquivo};
+    *agenda = in.readAll();
+    arquivo.close();
+    return agenda;
+}
+
+
+bool Atendente::remover_lista_usuarios(int id)
+{
+    QFile arquivo{"lista_usuarios.txt"};
+    QString tmp = "";
+    QString dados = "";
+    if(!arquivo.exists())
+    {
+        cout << "arquivo de dados não existente" << endl;
+    }
+
+    if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        cout << "Erro ao tentar criar o aquivo" << endl;
+        return false;
+    }
+
+    QTextStream in{&arquivo};
+    while(!in.atEnd())
+    {
+        tmp = in.readLine();
+        if(tmp.split(',')[1].toInt() == id)
+                continue;
+        dados += tmp + "\n";
+    }
+
+    //removendo extra "\n" desnecessário
+    //dados.remove(dados.size()-2, dados.size()-1);
+    arquivo.close();
+
+    //abrindo o arquivo novamente, dessa vez sobreescrevendo os dados
+    if (!arquivo.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        cout << "Erro ao tentar criar o aquivo" << endl;
+        return false;
+    }
+
+    in << dados;
+
+    arquivo.close();
+    return true;
 }
 
 /**
@@ -493,6 +578,9 @@ QString Atendente::set_path(int id)
     QString dados = verificar_usuario((int) id);
     QString pasta;
 
+
+
+    //verificando o tipo de usuário
     switch(dados.split(',')[0].toInt())
     {
         case 0:
@@ -507,7 +595,7 @@ QString Atendente::set_path(int id)
     }
 
     //vericando se a pasta de nome(id) existe e se consigo acessar a pasta
-    cout << pasta.toStdString() << "/" << id << endl;
+    qDebug() << pasta << "/" << id;
     if(path->absolutePath().contains(pasta + "/" + QString::number(id)))
     {
         cout << "pasta_existe";
@@ -531,5 +619,4 @@ QString Atendente::set_path(int id)
     qCritical() << path->currentPath();
     return path->currentPath();
 }
-
 }

@@ -1,7 +1,11 @@
 #ifndef ATENDENTE_H
 #define ATENDENTE_H
+#pragma once
 
 #include <medico.h>
+#include <pasciente.h>
+
+
 namespace dwp {
 class Atendente : public Sistema
 {
@@ -115,6 +119,8 @@ class Atendente : public Sistema
         bool cadastrar_atendente(Atendente *atendente);
         bool cadastrar_medico(Medico *medico);
 
+        bool cadastrar_pasciente(Pasciente *pasciente);
+
         QString adicionar_agenda(int id, QString *agenda);
         QString *get_agenda(int id);
 
@@ -124,10 +130,8 @@ class Atendente : public Sistema
 
 
         void mostrar_dados();
-        QString set_path(int id);
 
-        QString verificar_usuario(int id);
-        QString verificar_usuario(long cpf);
+
 
 };
 }

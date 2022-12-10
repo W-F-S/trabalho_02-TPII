@@ -14,6 +14,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     medico.cpp \
+    pasciente.cpp \
     sistema.cpp
 
 HEADERS += \
@@ -21,6 +22,7 @@ HEADERS += \
     atendente.h \
     mainwindow.h \
     medico.h \
+    pasciente.h \
     sistema.h
 
 FORMS += \

@@ -72,7 +72,6 @@ void Sistema::setSenha(QString senha)
 QString Sistema::getSenha()
 {
     return Sistema::senha;
-
 }
 
 int Sistema::gerar_num_matricula(){
@@ -97,9 +96,6 @@ int Sistema::gerar_num_matricula(){
     infile.close();
     return num_matricula;
 }
-
-
-
 
 Sistema::Sistema()
 {
@@ -133,6 +129,140 @@ Sistema::Sistema(QString nome, long cpf, QString email, long telefone, long tele
     Sistema::senha = senha;
 }
 
+/**
+ * @brief Atendente::adicionar_agenda Função que adiciona algum texto na agenda do funcionario.
+ * @param agenda - dados que devem ser adicionados a agenda do usuário
+ * @return QString - " " caso não seja possível criar agenda
+ */
+QString Sistema::adicionar_agenda( int id, QString *agenda)
+{
+    QFile arquivo{"agenda.txt"};
+    QDir path{};
+
+    path.setCurrent(Sistema::set_path(id));
+
+    if(!arquivo.exists())
+    {
+        qCritical() << "Atenção. Agenda do usuario não existe. Criando arquivo...";
+    }
+    if (!arquivo.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        qCritical() << "Erro ao ler o arquivo;";
+        return " ";
+    }
+    QTextStream in{&arquivo};
+    while(!arquivo.atEnd())
+    {
+         in.seek(EOF);
+    }
+    in << + "[\n"
+          + *agenda
+          + "\n]";
+    arquivo.close();
+    return "true";
+}
+
+/**
+ * @brief Sistema::adicionar_lista_usuarios Função que adiciona tipo, cpf e senha de um usuário em um arquivc auxiliar
+ * @param tipo - tipo de usuario. 0 atendente, 1 medico, 2 pasciente
+ * @param cpf
+ * @param senha
+ * @return
+ */
+QString Sistema::adicionar_lista_usuarios(int tipo, int id,long cpf, QString senha)
+{
+    QFile arquivo{"lista_usuarios.txt"};
+    if(!arquivo.exists())
+    {
+        cout << "arquivo de dados não existente" << endl;
+    }
+
+    if (!arquivo.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        cout << "Erro ao tentar criar o aquivo" << endl;
+        return " ";
+    }
+
+    QTextStream in{&arquivo};
+    while(!in.atEnd())
+    {
+        in.readLine();
+    }
+
+    in << tipo << "," << id << "," << cpf << "," << senha << "\n";
+    arquivo.close();
+    return "true";
+}
+
+
+QString *Sistema::get_agenda(int id)
+{
+    QFile arquivo{"agenda.txt"};
+    QDir path{};
+    QString *agenda = new QString{""};
+
+    path.setCurrent(Sistema::set_path(id));
+
+    if(!arquivo.exists())
+    {
+        qCritical() << "Atenção. Agenda do usuario não existe";
+        return agenda;
+    }
+    if (!arquivo.open(QIODevice::ReadWrite | QIODevice::Text))
+    {
+        qCritical() << "Erro ao criar arquivo";
+        return agenda;
+    }
+    QTextStream in{&arquivo};
+    *agenda = in.readAll();
+    arquivo.close();
+    return agenda;
+}
+
+
+bool Sistema::remover_lista_usuarios(int id)
+{
+    QFile arquivo{"lista_usuarios.txt"};
+    QString tmp = "";
+    QString dados = "";
+    if(!arquivo.exists())
+    {
+        cout << "arquivo de dados não existente" << endl;
+    }
+
+    if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        cout << "Erro ao tentar criar o aquivo" << endl;
+        return false;
+    }
+
+    QTextStream in{&arquivo};
+    while(!in.atEnd())
+    {
+        tmp = in.readLine();
+        if(tmp.split(',')[1].toInt() == id)
+                continue;
+        dados += tmp + "\n";
+    }
+
+    //removendo extra "\n" desnecessário
+    //dados.remove(dados.size()-2, dados.size()-1);
+    arquivo.close();
+
+    //abrindo o arquivo novamente, dessa vez sobreescrevendo os dados
+    if (!arquivo.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        cout << "Erro ao tentar criar o aquivo" << endl;
+        return false;
+    }
+
+    in << dados;
+
+    arquivo.close();
+    return true;
+}
+
+
 
 void Sistema::mostar_usuario()
 {
@@ -142,4 +272,136 @@ void Sistema::mostar_usuario()
         cout <<  to_string(Sistema::getTelefone()) << endl;
         cout <<  to_string(Sistema::getTelefone_whatsapp()) << endl;
         cout << to_string(Sistema::getNum_matricula()) << endl;
+}
+
+/**
+ * @brief Atendente::verificar_usuario Função que verifica se o usuário está cadastrado no sistema
+ * @param cpf - cpf do usuário a ser pesquisado
+ * @return dados QString contendo tipo, id, cpf, senha do funcionario cadastrado, separados por vírgulas e sem espaços
+ * @return "" caso o usuário não tenha sido encontrado
+ */
+QString Sistema::verificar_usuario(long cpf)
+{
+    QFile arquivo{"lista_usuarios.txt"};
+    QString dados;
+    bool contains = false;
+
+    if(!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qCritical() << "Erro ao tentar abrir o arquivo" << arquivo.fileName();
+        if(!arquivo.exists())
+        {
+            qCritical() << "Erro, arquivo" << arquivo.fileName() << "não existe";
+            return "";
+        }
+        return "";
+    }
+    QTextStream in{&arquivo};
+
+    while(!contains && !in.atEnd())
+    {
+        dados = in.readLine();
+        if(dados.contains(QString::number(cpf)))
+        {
+            qDebug() << "Usuário:\n" << dados << "\nencontrado";
+            contains = true;
+        }
+    }
+    if(!contains)
+            dados = "";
+    arquivo.close();
+    return dados;
+}
+
+/**
+ * @brief Atendente::verificar_usuario Função que verifica se o usuário está cadastrado no sistema
+ * @param id - id do usuário
+ * @return dados QString contendo tipo, id, cpf, senha do funcionario cadastrado, separados por vírgulas e sem espaços
+ * @return "" caso o usuário não tenha sido encontrado
+ */
+QString Sistema::verificar_usuario(int id)
+{
+    QFile arquivo{"lista_usuarios.txt"};
+    QString dados;
+    bool contains = false;
+
+    if(!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qCritical() << "Erro ao tentar abrir o arquivo" << arquivo.fileName();
+        if(!arquivo.exists())
+        {
+            qCritical() << "Erro, arquivo" << arquivo.fileName() << "não existe";
+            return "";
+        }
+        return "";
+    }
+    QTextStream in{&arquivo};
+
+    while(!contains && !in.atEnd())
+    {
+        dados = in.readLine();
+        if(dados.contains(QString::number(id)+","))
+        {
+            qDebug() << "Usuário:\n" << dados << "\nencontrado";
+            contains = true;
+        }
+    }
+    if(!contains)
+            dados = "";
+
+    arquivo.close();
+    return dados;
+}
+
+/**
+ * @brief Atendente::set_path Função que retorna o absolute path do funcionario
+ * @return path do id da funcionaria.
+ */
+QString Sistema::set_path(int id)
+{
+    QDir *path = new QDir();
+
+    QString dados = verificar_usuario((int) id);
+    QString pasta;
+
+
+
+    //verificando o tipo de usuário
+    switch(dados.split(',')[0].toInt())
+    {
+        case 0:
+            pasta = "atendente";
+        break;
+        case 1:
+            pasta = "medico";
+        break;
+        case 2:
+            pasta = "usuario";
+        break;
+    }
+
+    //vericando se a pasta de nome(id) existe e se consigo acessar a pasta
+    qDebug() << pasta << "/" << id;
+    if(path->absolutePath().contains(pasta + "/" + QString::number(id)))
+    {
+        cout << "pasta_existe";
+    }
+
+    if(path->absolutePath().contains(pasta))
+    {
+        qCritical() << "Path atual:" << path->absolutePath();
+        qCritical() << "Atenção, você está em uma pasta de usuário. Subindo um nível";
+        while(path->absolutePath().contains(pasta))
+        {
+            path->cdUp();
+        }
+    }
+
+   if(!path->setCurrent(pasta+"/"+QString::number(id)))
+    {
+        qCritical() << "Erro ao tentar abrir a pasta do" << pasta << "de id:" << id;
+        return "./";
+    }
+    qCritical() << path->currentPath();
+    return path->currentPath();
 }

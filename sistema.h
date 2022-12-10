@@ -1,3 +1,4 @@
+#pragma once
 #include <QString>
 #include <QtDebug>
 #include <QFile>
@@ -41,20 +42,30 @@ public:
     bool realizar_autenticacao(int cargo, QString email, QString senha);
     void consultar_agenda_paciente();
 
-    const QString &getNome() const;
-    void  setNome(const QString &newNome);
-    long  getCpf() const;
-    void  setCpf(long newCpf);
-    const QString &getEmail() const;
-    void  setEmail(const QString &newEmail);
-    long  getTelefone() const;
-    void  setTelefone(long newTelefone);
-    long  getTelefone_whatsapp() const;
-    void  setTelefone_whatsapp(long newTelefone_whatsapp);
-    int   getNum_matricula() const;
-    void  setNum_matricula(int newNum_matricula);
-    void  setSenha(QString newSenha);
+    const   QString &getNome() const;
+    void    setNome(const QString &newNome);
+    long    getCpf() const;
+    void    setCpf(long newCpf);
+    const   QString &getEmail() const;
+    void    setEmail(const QString &newEmail);
+    long    getTelefone() const;
+    void    setTelefone(long newTelefone);
+    long    getTelefone_whatsapp() const;
+    void    setTelefone_whatsapp(long newTelefone_whatsapp);
+    int     getNum_matricula() const;
+    void    setNum_matricula(int newNum_matricula);
+    void    setSenha(QString newSenha);
     QString getSenha();
+
+    QString set_path(int id);
+
+    QString verificar_usuario(int id);
+    QString verificar_usuario(long cpf);
+
+    QString adicionar_lista_usuarios(int tipo, int id,long cpf, QString senha);
+    QString *get_agenda(int id);
+    QString adicionar_agenda( int id, QString *agenda);
+    bool    remover_lista_usuarios(int id);
 
     void mostar_usuario();
 };

@@ -1,5 +1,6 @@
 #ifndef MEDICO_H
 #define MEDICO_H
+#pragma once
 
 #include <sistema.h>
 namespace dwp

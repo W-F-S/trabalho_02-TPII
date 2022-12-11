@@ -1,7 +1,8 @@
 #ifndef MEDICO_H
 #define MEDICO_H
+#pragma once
 
-#include <sistema.h>
+#include "sistema.h"
 namespace dwp
 {
 class Medico : public Sistema
@@ -16,7 +17,6 @@ class Medico : public Sistema
        Medico();
        Medico(Sistema *usuario, QString especialidade,  bool particular,  long crm, long *pascientes);
        Medico(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha, QString especialidade,  bool particular,  long crm, long *pascientes);
-       void mostrar_dados();
 
        QString getEspecialidade() const;
        void setEspecialidade(const QString &newEspecialidade);
@@ -29,7 +29,7 @@ class Medico : public Sistema
        long *getPascientes() const;
        void setPascientes(long *newPascientes);
 
-
+       QString mostrar_dados();
 };
 }
 #endif // MEDICO_H

@@ -42,7 +42,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -57,12 +57,12 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Buscar Atendente</string>
+          <string>Usuario</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEditUsuarioAtendente"/>
+        <widget class="QLineEdit" name="lineEditUsuario"/>
        </item>
       </layout>
      </item>
@@ -71,12 +71,12 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Buscar Medico</string>
+          <string>Senha</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEditUsuarioMedico"/>
+        <widget class="QLineEdit" name="lineEditSenha"/>
        </item>
       </layout>
      </item>

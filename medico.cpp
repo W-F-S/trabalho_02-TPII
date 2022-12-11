@@ -79,17 +79,18 @@ Medico::Medico(QString nome, long cpf, QString email, long telefone, long telefo
     Medico::pascientes = pascientes;
 }
 
-void Medico::mostrar_dados()
+QString Medico::mostrar_dados()
 {
-    cout << Medico::getNome().toStdString() << endl;
-    cout << to_string(Medico::getCpf()) << endl;
-    cout << Medico::getEmail().toStdString() << endl;
-    cout <<  to_string(Medico::getTelefone()) << endl;
-    cout <<  to_string(Medico::getTelefone_whatsapp()) << endl;
-    cout << to_string(Medico::getNum_matricula()) << endl;
-    cout << Medico::getEspecialidade().toStdString() << endl;
-    cout << Medico::getPascientes()[0] << endl;
-    cout << Medico::getPascientes()[1] << endl;
-    cout << Medico::getPascientes()[2]<< endl;
+    QString texto= Medico::getNome()+"\n"+
+    Medico::getCpf()+"\n"+
+    Medico::getEmail()+"\n"+
+    Medico::getTelefone()+"\n"+
+    Medico::getTelefone_whatsapp()+"\n"+
+    Medico::getNum_matricula()+"\n"+
+     Medico::getEspecialidade()+"\n"+
+    Medico::getPascientes()[0]+"\n"+
+    Medico::getPascientes()[1]+"\n"+
+    Medico::getPascientes()[2];
+
 }
 }

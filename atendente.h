@@ -2,6 +2,7 @@
 #define ATENDENTE_H
 #pragma once
 
+
 #include <medico.h>
 #include <pasciente.h>
 
@@ -24,6 +25,7 @@ class Atendente : public Sistema
         void set_Medicos_acessorados(long *cpfs);
         Atendente* buscar_atendente(int id);
         Medico* buscar_medico(int id);
+        Pasciente* buscar_pasciente(int id);
         bool deletar_usuario(int id);
 
 
@@ -121,18 +123,11 @@ class Atendente : public Sistema
 
         bool cadastrar_pasciente(Pasciente *pasciente);
 
-        QString adicionar_agenda(int id, QString *agenda);
-        QString *get_agenda(int id);
 
-        QString adicionar_lista_usuarios(int tipo, int id,  long cpf, QString senha);
 
-        bool remover_lista_usuarios(int id);
 
 
         void mostrar_dados();
-
-
-
 };
 }
 #endif // ATENDENTE_H

@@ -185,23 +185,21 @@ bool Atendente::cadastrar_medico(Medico *medico)
     return true;
 }
 
+
+
 bool Atendente::cadastrar_pasciente(Pasciente *pasciente)
 {
     QDir path{};
     QString raiz = path.absolutePath();
-    QString folder_name = "medico/";
+    QString folder_name = "pasciente/";
     QString filename{"dados.txt"};
     QFile arquivo{filename};
     int id = pasciente->getNum_matricula();
 
-    if(!Atendente::get_Secretaria_geral())
-    {
-        qCritical() << "erro, você não tem permissões para cadastrar um médico";
-        return false;
-    }
+
     if(path.mkpath(folder_name + QString::number(id)))
     {
-        qDebug() << "Pasta do médico de id: " + QString::number(id) + "criada";
+        qDebug() << "Pasta do pasciente de id: " + QString::number(id) + "criada";
     }
 
     path.setCurrent(folder_name + QString::number(id));
@@ -345,7 +343,7 @@ Medico* Atendente::buscar_medico(int id)
     QDir path{};
     QString raiz = path.absolutePath();
     QFile arquivo{"dados.txt"};
-    Medico *retornar{};
+    Medico *retornar = new Medico{};
     QString especialidade;
     QStringList lista_acessorados;
     long *cpfs = new long[3];
@@ -385,6 +383,57 @@ Medico* Atendente::buscar_medico(int id)
     cpfs[1] = lista_acessorados[1].toLong();
     cpfs[2] = lista_acessorados[2].toLong();
     retornar->setPascientes(cpfs);
+
+    arquivo.close();
+    path.setCurrent(raiz);
+    return retornar;
+}
+
+
+/**
+ * @brief Atendente::get_dados_medico Função que constroi um objeto Medico com base em um arquivo de dados
+ * @param id - Id do medico
+ * @return *Medico - Ponteiro para o objeto construido
+ */
+Pasciente* Atendente::buscar_pasciente(int id)
+{
+    QDir path{};
+    QString raiz = path.absolutePath();
+    QFile arquivo{"dados.txt"};
+    Pasciente *retornar = new Pasciente{};
+    QString especialidade;
+    QStringList lista_acessorados;
+    long *cpfs = new long[3];
+    bool ok;
+
+    if(!path.setCurrent(QString::fromStdString("./pasciente/")+QString::number(id)))
+    {
+        cout << "Erro ao tentar abrir a pasta do pasciente" << endl;
+        if(!path.exists("./pasciente/"+QString::number(id)))
+        {
+            cout << "Atenção. Pasta de médicos inexistente ou pasciente de id:" << id << "não existe." << endl;
+        }
+        exit(1);
+    }
+
+    if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        exit(1);
+        //return false;
+    }
+    QTextStream in{&arquivo};
+
+    retornar->setNome(in.readLine());
+    retornar->setCpf(in.readLine().toLong());
+    retornar->setEmail(in.readLine());
+    retornar->setTelefone(in.readLine().toLong());
+    retornar->setTelefone_whatsapp(in.readLine().toLong());
+    retornar->setNum_matricula(in.readLine().toInt(&ok, 10));
+    retornar->setSenha(in.readLine());
+    retornar->setParticular(in.readLine().toInt());
+    retornar->setConvenio(in.readLine());
+    retornar->setMedico(in.readLine().toLong());
 
     arquivo.close();
     path.setCurrent(raiz);

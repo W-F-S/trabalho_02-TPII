@@ -138,8 +138,15 @@ QString Sistema::adicionar_agenda( int id, QString *agenda)
 {
     QFile arquivo{"agenda.txt"};
     QDir path{};
+    QString path_usuario = Sistema::set_path(id);
+    cout << "passando do set_path";
+    if(path_usuario == "")
+    {
+        qCritical() << "Erro ao tentar pegar o path do usuario";
+        return "";
+    }
 
-    path.setCurrent(Sistema::set_path(id));
+    path.setCurrent(path_usuario);
 
     if(!arquivo.exists())
     {
@@ -153,12 +160,13 @@ QString Sistema::adicionar_agenda( int id, QString *agenda)
     QTextStream in{&arquivo};
     while(!arquivo.atEnd())
     {
-         in.seek(EOF);
+         in.readLine();
     }
     in << + "[\n"
           + *agenda
           + "\n]";
     arquivo.close();
+    qDebug() << "Agenda escrita com sucesso.";
     return "true";
 }
 
@@ -275,12 +283,13 @@ void Sistema::mostar_usuario()
 }
 
 /**
- * @brief Atendente::verificar_usuario Função que verifica se o usuário está cadastrado no sistema
+ * @brief Sistema::buscar_usuario
+ * Função que verifica se o usuário está cadastrado no sistema
  * @param cpf - cpf do usuário a ser pesquisado
  * @return dados QString contendo tipo, id, cpf, senha do funcionario cadastrado, separados por vírgulas e sem espaços
  * @return "" caso o usuário não tenha sido encontrado
  */
-QString Sistema::verificar_usuario(long cpf)
+QString Sistema::buscar_usuario(long cpf)
 {
     QFile arquivo{"lista_usuarios.txt"};
     QString dados;
@@ -314,12 +323,12 @@ QString Sistema::verificar_usuario(long cpf)
 }
 
 /**
- * @brief Atendente::verificar_usuario Função que verifica se o usuário está cadastrado no sistema
+ * @brief Atendente::buscar_usuario Função que verifica se o usuário está cadastrado no sistema
  * @param id - id do usuário
  * @return dados QString contendo tipo, id, cpf, senha do funcionario cadastrado, separados por vírgulas e sem espaços
  * @return "" caso o usuário não tenha sido encontrado
  */
-QString Sistema::verificar_usuario(int id)
+QString Sistema::buscar_usuario(int id)
 {
     QFile arquivo{"lista_usuarios.txt"};
     QString dados;
@@ -340,14 +349,14 @@ QString Sistema::verificar_usuario(int id)
     while(!contains && !in.atEnd())
     {
         dados = in.readLine();
-        if(dados.contains(QString::number(id)+","))
+        if(dados.split(',')[1].toInt() == id)
         {
             qDebug() << "Usuário:\n" << dados << "\nencontrado";
             contains = true;
         }
     }
     if(!contains)
-            dados = "";
+        dados = "";
 
     arquivo.close();
     return dados;
@@ -361,46 +370,51 @@ QString Sistema::set_path(int id)
 {
     QDir *path = new QDir();
 
-    QString dados = verificar_usuario((int) id);
+    QString dados = buscar_usuario((int) id);
     QString pasta;
+    bool ok;
 
 
-
+    qCritical() << dados.split(',')[0].toInt(&ok, 10);
     //verificando o tipo de usuário
-    switch(dados.split(',')[0].toInt())
+    switch(dados.split(',')[0].toInt(&ok, 10))
     {
         case 0:
             pasta = "atendente";
         break;
+
         case 1:
             pasta = "medico";
         break;
+
         case 2:
-            pasta = "usuario";
+            pasta = "pasciente";
         break;
     }
 
     //vericando se a pasta de nome(id) existe e se consigo acessar a pasta
     qDebug() << pasta << "/" << id;
-    if(path->absolutePath().contains(pasta + "/" + QString::number(id)))
+    if(path->absolutePath().contains("./" + pasta + "/" + QString::number(id)))
     {
         cout << "pasta_existe";
-    }
-
-    if(path->absolutePath().contains(pasta))
-    {
-        qCritical() << "Path atual:" << path->absolutePath();
-        qCritical() << "Atenção, você está em uma pasta de usuário. Subindo um nível";
-        while(path->absolutePath().contains(pasta))
+    }else{
+        if(path->absolutePath().contains(pasta))
         {
-            path->cdUp();
+            qCritical() << "Path atual:" << path->absolutePath();
+            qCritical() << "Atenção, você está em uma pasta de usuário. Subindo um nível";
+            while(path->absolutePath().contains(pasta))
+            {
+                qCritical() << "Path atual:" << path->absolutePath();
+                path->cdUp();
+            }
         }
     }
 
    if(!path->setCurrent(pasta+"/"+QString::number(id)))
     {
+        qCritical() << path->currentPath();
         qCritical() << "Erro ao tentar abrir a pasta do" << pasta << "de id:" << id;
-        return "./";
+        return "";
     }
     qCritical() << path->currentPath();
     return path->currentPath();

@@ -59,8 +59,8 @@ public:
 
     QString set_path(int id);
 
-    QString verificar_usuario(int id);
-    QString verificar_usuario(long cpf);
+    QString buscar_usuario(int id);
+    QString buscar_usuario(long cpf);
 
     QString adicionar_lista_usuarios(int tipo, int id,long cpf, QString senha);
     QString *get_agenda(int id);

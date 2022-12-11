@@ -17,7 +17,6 @@ class Medico : public Sistema
        Medico();
        Medico(Sistema *usuario, QString especialidade,  bool particular,  long crm, long *pascientes);
        Medico(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha, QString especialidade,  bool particular,  long crm, long *pascientes);
-       void mostrar_dados();
 
        QString getEspecialidade() const;
        void setEspecialidade(const QString &newEspecialidade);
@@ -30,7 +29,7 @@ class Medico : public Sistema
        long *getPascientes() const;
        void setPascientes(long *newPascientes);
 
-
+       void mostrar_dados();
 };
 }
 #endif // MEDICO_H

@@ -66,6 +66,8 @@ public:
     QString *get_agenda(int id);
     QString adicionar_agenda( int id, QString *agenda);
     bool    remover_lista_usuarios(int id);
-
     void mostar_usuario();
+
+
+    int login(long cpf, QString senha);
 };

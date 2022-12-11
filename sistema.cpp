@@ -97,6 +97,9 @@ int Sistema::gerar_num_matricula(){
     return num_matricula;
 }
 
+
+
+
 Sistema::Sistema()
 {
     Sistema::nome = "";
@@ -270,8 +273,6 @@ bool Sistema::remover_lista_usuarios(int id)
     return true;
 }
 
-
-
 void Sistema::mostar_usuario()
 {
         cout << Sistema::getNome().toStdString() << endl;
@@ -419,3 +420,16 @@ QString Sistema::set_path(int id)
     qCritical() << path->currentPath();
     return path->currentPath();
 }
+
+int Sistema::login(long cpf, QString senha)
+{
+    QString usuario = buscar_usuario(cpf);
+    if(usuario == "")
+        return -1; //usuario não encontrado
+    if(usuario.split(',')[3].compare(senha) != 0 )
+    {
+        return 1; //senha errada
+    }
+    return 0; //sucesso
+}
+

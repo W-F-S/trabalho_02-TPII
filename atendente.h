@@ -1,10 +1,8 @@
 #ifndef ATENDENTE_H
 #define ATENDENTE_H
 #pragma once
-
-
-#include <medico.h>
-#include <pasciente.h>
+#include "medico.h"
+#include "pasciente.h"
 
 
 namespace dwp {
@@ -122,11 +120,6 @@ class Atendente : public Sistema
         bool cadastrar_medico(Medico *medico);
 
         bool cadastrar_pasciente(Pasciente *pasciente);
-
-
-
-
-
         void mostrar_dados();
 };
 }

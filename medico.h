@@ -2,7 +2,7 @@
 #define MEDICO_H
 #pragma once
 
-#include <sistema.h>
+#include "sistema.h"
 namespace dwp
 {
 class Medico : public Sistema

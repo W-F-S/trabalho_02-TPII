@@ -458,6 +458,5 @@ void Atendente::mostrar_dados()
     cout << Atendente::get_medicos_assessorados()[1] << endl;
     cout << Atendente::get_medicos_assessorados()[2]<< endl;
 }
-
-
 }
+

@@ -1,10 +1,9 @@
 #include "mainwindow.h"
 #include "atendente.h"
-
 #include <QApplication>
 
 using namespace dwp;
-int main()
+int main(int argc, char *argv[])
 {
  /*   long *cpf = new long[3];
     cpf[0] = 72576240558;
@@ -45,7 +44,7 @@ int main()
 
     nova_atendente.cadastrar_atendente(&nova_atendente);
     nova_atendente.cadastrar_medico(&novo_medico);
-    nova_atendente.cadastrar_pasciente(&novo_pasciente);*/
+    nova_atendente.cadastrar_pasciente(&novo_pasciente);
     Sistema tmp{};
     QString nov = "Adicionando algo na agenda.";
 
@@ -53,7 +52,7 @@ int main()
 
     tmp.adicionar_agenda((int)6, &nov);
     cout << tmp.get_agenda(6)->toStdString();
- /*   int id_atendente = tmp.buscar_usuario(46578952546).split(',')[1].toInt();
+    int id_atendente = tmp.buscar_usuario(46578952546).split(',')[1].toInt();
     int id_medico = tmp.buscar_usuario(46254898795).split(',')[1].toInt();
     int id_pasciente = tmp.buscar_usuario(54654689513).split(',')[1].toInt();
 
@@ -70,4 +69,11 @@ int main()
     getchar();
 
     cout << "criando nova atendente";*/
+
+
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
 }
+

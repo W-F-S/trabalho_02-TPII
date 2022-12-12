@@ -21,8 +21,7 @@ void Atendente_cadastrar_usuario::on_pushButton_cadastrar_clicked()
     QString convenio = "";
 
     QString nome_pasciente  = ui->lineEdit_nome->text();
-    long cpf_pasciente  = ui->lineEdit_cpf->text().toLong();
-    QString email = ui->lineEdit_email->text();
+    long CPF_pasciente  = ui->lineEdit_cpf->text().toLong();
     long telefone = ui->lineEdit_telefone->text().toLong();
     long whatsapp = ui->lineEdit_whatsapp->text().toLong();
     long cpf_medico = ui->lineEdit_cpf_medico->text().toLong();
@@ -34,19 +33,20 @@ void Atendente_cadastrar_usuario::on_pushButton_cadastrar_clicked()
         convenio = ui->lineEdit_convenio->text();
     }
 
-    dwp::Pasciente novo_pasciente{
+
+    dwp::Pasciente novo_pasciente = new Pasciente{
         nome_pasciente,
-        cpf_pasciente,
-        email,
-        telefone,
-        whatsapp,
-        senha,
-        cpf_medico,
-        particular,
-        convenio
+            cpf_pasciente,
+            telefone,
+            whatsapp
+            senha,
+            cpf_medico,
+            particular,
+            convenio,
     };
 
     dwp::Atendente tmp{};
+
     tmp.cadastrar_pasciente(&novo_pasciente);
 }
 

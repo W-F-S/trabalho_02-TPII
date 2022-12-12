@@ -13,6 +13,7 @@ SOURCES += \
     atendente.cpp \
     atendente_cadastrar_usuario.cpp \
     atendente_tela.cpp \
+    cadastrar_medico.cpp \
     login.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     atendente.h \
     atendente_cadastrar_usuario.h \
     atendente_tela.h \
+    cadastrar_medico.h \
     login.h \
     mainwindow.h \
     medico.h \
@@ -34,6 +36,7 @@ HEADERS += \
 FORMS += \
     atendente_cadastrar_usuario.ui \
     atendente_tela.ui \
+    cadastrar_medico.ui \
     login.ui \
     login1.ui \
     mainwindow.ui

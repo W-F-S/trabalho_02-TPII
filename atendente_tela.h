@@ -14,7 +14,7 @@ class Atendente_tela : public QDialog
     Q_OBJECT
 
 public:
-    void set_atendente(dwp::Atendente *autenticado);
+    Atendente_tela(dwp::Atendente *autenticado);
     explicit Atendente_tela(QWidget *parent = nullptr);
     ~Atendente_tela();
 
@@ -23,7 +23,6 @@ private slots:
 
 private:
     dwp::Atendente *autenticado;
-    Atendente_cadastrar_usuario *cadastrar_pasciente;
 
     Ui::Atendente_tela *ui;
 };

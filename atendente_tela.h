@@ -5,6 +5,9 @@
 #include <QDialog>
 #include "atendente_cadastrar_usuario.h"
 #include "atendente_cadastrar_medico.h"
+#include "get_agenda.h"
+#include "adicionar_agenda.h"
+
 
 namespace Ui {
 class Atendente_tela;
@@ -24,10 +27,16 @@ private slots:
 
     void on_pushButton_cadastrarUsuario_clicked();
 
+    void on_pushButton_consultarAgenda_clicked();
+
+    void on_pushButton_3_clicked();
+
 private:
     dwp::Atendente *autenticado;
     Atendente_cadastrar_usuario *cadastrar_pasciente;
     Atendente_cadastrar_medico *cadastrar_medico;
+    get_agenda *g_agenda;
+    Adicionar_agenda *a_agenda;
 
     Ui::Atendente_tela *ui;
 };

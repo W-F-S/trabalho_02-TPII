@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+/*#include "ui_mainwindow.h"
 #include<atendente.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,3 +36,4 @@ void MainWindow::on_pushButtonEntrar_clicked()
     ui->lineEditUsuarioMedico->clear();
 }
 
+*/

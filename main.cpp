@@ -70,7 +70,23 @@ int main(int argc, char *argv[])
     getchar();
 
     cout << "criando nova atendente";*/
+    long *cpf = new long[3];
+      cpf[0] = 72576240558;
+      cpf[1] = 13215465130;
+      cpf[2] = 15413533256;
 
+    Sistema usuario_atendente{
+        "nova_atendente",
+        46578952546,
+        "nova_atendente@email.com",
+        35557856884,
+        35557856884,
+        "nova_atendente_senha"
+    };
+
+    Atendente nova_atendente{&usuario_atendente, true, cpf};
+
+    nova_atendente.cadastrar_atendente(&nova_atendente);
 
     QApplication a(argc, argv);
     Login w;

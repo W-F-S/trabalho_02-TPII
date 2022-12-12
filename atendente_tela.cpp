@@ -27,10 +27,21 @@ void Atendente_tela::on_pushButton_2_clicked()
     cadastrar_pasciente->show();
 }
 
-
 void Atendente_tela::on_pushButton_cadastrarUsuario_clicked()
 {
     cadastrar_medico = new Atendente_cadastrar_medico(this);
     cadastrar_medico->show();
+}
+
+void Atendente_tela::on_pushButton_consultarAgenda_clicked()
+{
+    g_agenda = new get_agenda(this);
+    g_agenda->show();
+}
+
+void Atendente_tela::on_pushButton_3_clicked()
+{
+    a_agenda = new Adicionar_agenda(this);
+    a_agenda->show();
 }
 

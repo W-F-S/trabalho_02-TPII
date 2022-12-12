@@ -31,9 +31,9 @@ void Atendente_cadastrar_medico::on_pushButton_cadastrar_clicked()
     long crm = ui->lineEdit_crm->text().toLong();
     QString tmp = ui->lineEdit_pascientes->text();
     QString especialidade = ui->lineEdit_especialidade->text();
-    cpfs[0] = especialidade.split(',')[0].toLong();
-    cpfs[1] = especialidade.split(',')[1].toLong();
-    cpfs[2] = especialidade.split(',')[2].toLong();
+    cpfs[0] = tmp.split(',')[0].toLong();
+    cpfs[1] = tmp.split(',')[1].toLong();
+    cpfs[2] = tmp.split(',')[2].toLong();
 
     if(ui->checkBox_particular->isChecked())
     {

@@ -1,5 +1,6 @@
 #include "pasciente.h"
-
+namespace dwp
+{
 long Pasciente::getMedico() const
 {
     return medico;
@@ -76,14 +77,15 @@ Pasciente::Pasciente(QString nome, long cpf, QString email, long telefone, long 
  */
 void Pasciente::mostrar_dados()
 {
-    cout << Pasciente::getNome().toStdString() << endl;
-    cout << to_string(Pasciente::getCpf()) << endl;
-    cout << Pasciente::getEmail().toStdString() << endl;
-    cout <<  to_string(Pasciente::getTelefone()) << endl;
-    cout <<  to_string(Pasciente::getTelefone_whatsapp()) << endl;
-    cout << to_string(Pasciente::getNum_matricula()) << endl;
-    cout << (Pasciente::getConvenio().toStdString());
-    cout << (Pasciente::getMedico());
-    cout << (Pasciente::getParticular());
+    std::cout << Pasciente::getNome().toStdString() << endl;
+    std::cout << std::to_string(Pasciente::getCpf()) << endl;
+    std::cout << Pasciente::getEmail().toStdString() << endl;
+    std::cout <<  std::to_string(Pasciente::getTelefone()) << endl;
+    std::cout <<  std::to_string(Pasciente::getTelefone_whatsapp()) << endl;
+    std::cout << std::to_string(Pasciente::getNum_matricula()) << endl;
+    std::cout << (Pasciente::getConvenio().toStdString());
+    std::cout << (Pasciente::getMedico());
+    std::cout << (Pasciente::getParticular());
 
+}
 }

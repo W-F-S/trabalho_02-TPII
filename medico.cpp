@@ -81,15 +81,15 @@ Medico::Medico(QString nome, long cpf, QString email, long telefone, long telefo
 
 void Medico::mostrar_dados()
 {
-    cout << Medico::getNome().toStdString() << endl;
-    cout << to_string(Medico::getCpf()) << endl;
-    cout << Medico::getEmail().toStdString() << endl;
-    cout <<  to_string(Medico::getTelefone()) << endl;
-    cout <<  to_string(Medico::getTelefone_whatsapp()) << endl;
-    cout << to_string(Medico::getNum_matricula()) << endl;
-    cout << Medico::getEspecialidade().toStdString() << endl;
-    cout << Medico::getPascientes()[0] << endl;
-    cout << Medico::getPascientes()[1] << endl;
-    cout << Medico::getPascientes()[2]<< endl;
+    std::cout << Medico::getNome().toStdString() << endl;
+    std::cout << std::to_string(Medico::getCpf()) << endl;
+    std::cout << Medico::getEmail().toStdString() << endl;
+    std::cout <<  std::to_string(Medico::getTelefone()) << endl;
+    std::cout <<  std::to_string(Medico::getTelefone_whatsapp()) << endl;
+    std::cout << std::to_string(Medico::getNum_matricula()) << endl;
+    std::cout << Medico::getEspecialidade().toStdString() << endl;
+    std::cout << Medico::getPascientes()[0] << endl;
+    std::cout << Medico::getPascientes()[1] << endl;
+    std::cout << Medico::getPascientes()[2]<< endl;
 }
 }

@@ -1,5 +1,3 @@
-#ifndef MEDICO_H
-#define MEDICO_H
 #pragma once
 
 #include "sistema.h"
@@ -32,4 +30,3 @@ class Medico : public Sistema
        void mostrar_dados();
 };
 }
-#endif // MEDICO_H

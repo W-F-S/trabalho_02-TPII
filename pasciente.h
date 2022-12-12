@@ -1,10 +1,6 @@
-#ifndef PASCIENTE_H
-#define PASCIENTE_H
-
 #pragma once
-
 #include <sistema.h>
-
+namespace dwp {
 class Pasciente: public Sistema
 {
     private:
@@ -26,5 +22,4 @@ public:
     void mostrar_dados();
 
 };
-
-#endif // PASCIENTE_H
+}

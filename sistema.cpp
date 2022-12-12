@@ -1,5 +1,8 @@
 #include "sistema.h"
 
+namespace dwp
+{
+
 /**
  * Gera um número sequencial baseado um número contido no arquivo "numero_de_matricula"
  * o arquivo será gerado caso o mesmo não exista.
@@ -79,12 +82,12 @@ int Sistema::gerar_num_matricula(){
     QFile infile("numero_de_matricula.txt") ;
 
     if(!infile.exists()){
-        cout << "arquivo inexistente" << endl;
+        std::cout << "arquivo inexistente" << endl;
     }
 
     if( !infile.open(QIODevice::ReadOnly | QIODevice::Text) )
     {
-        cout << "erro ao abrir o arquivo de ids" << endl;
+        std::cout << "erro ao abrir o arquivo de ids" << endl;
     }
     QTextStream in{&infile};
 
@@ -142,7 +145,7 @@ QString Sistema::adicionar_agenda( int id, QString *agenda)
     QFile arquivo{"agenda.txt"};
     QDir path{};
     QString path_usuario = Sistema::set_path(id);
-    cout << "passando do set_path";
+    std::cout << "passando do set_path";
     if(path_usuario == "")
     {
         qCritical() << "Erro ao tentar pegar o path do usuario";
@@ -185,12 +188,12 @@ QString Sistema::adicionar_lista_usuarios(int tipo, int id,long cpf, QString sen
     QFile arquivo{"lista_usuarios.txt"};
     if(!arquivo.exists())
     {
-        cout << "arquivo de dados não existente" << endl;
+        std::cout << "arquivo de dados não existente" << endl;
     }
 
     if (!arquivo.open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        cout << "Erro ao tentar criar o aquivo" << endl;
+        std::cout << "Erro ao tentar criar o aquivo" << endl;
         return " ";
     }
 
@@ -238,12 +241,12 @@ bool Sistema::remover_lista_usuarios(int id)
     QString dados = "";
     if(!arquivo.exists())
     {
-        cout << "arquivo de dados não existente" << endl;
+        std::cout << "arquivo de dados não existente" << endl;
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        cout << "Erro ao tentar criar o aquivo" << endl;
+        std::cout << "Erro ao tentar criar o aquivo" << endl;
         return false;
     }
 
@@ -263,7 +266,7 @@ bool Sistema::remover_lista_usuarios(int id)
     //abrindo o arquivo novamente, dessa vez sobreescrevendo os dados
     if (!arquivo.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        cout << "Erro ao tentar criar o aquivo" << endl;
+        std::cout << "Erro ao tentar criar o aquivo" << endl;
         return false;
     }
 
@@ -275,12 +278,12 @@ bool Sistema::remover_lista_usuarios(int id)
 
 void Sistema::mostar_usuario()
 {
-        cout << Sistema::getNome().toStdString() << endl;
-        cout << to_string(Sistema::getCpf()) << endl;
-        cout << Sistema::getEmail().toStdString() << endl;
-        cout <<  to_string(Sistema::getTelefone()) << endl;
-        cout <<  to_string(Sistema::getTelefone_whatsapp()) << endl;
-        cout << to_string(Sistema::getNum_matricula()) << endl;
+        std::cout << Sistema::getNome().toStdString() << endl;
+        std::cout << std::to_string(Sistema::getCpf()) << endl;
+        std::cout << Sistema::getEmail().toStdString() << endl;
+        std::cout <<  std::to_string(Sistema::getTelefone()) << endl;
+        std::cout <<  std::to_string(Sistema::getTelefone_whatsapp()) << endl;
+        std::cout << std::to_string(Sistema::getNum_matricula()) << endl;
 }
 
 /**
@@ -397,7 +400,7 @@ QString Sistema::set_path(int id)
     qDebug() << pasta << "/" << id;
     if(path->absolutePath().contains("./" + pasta + "/" + QString::number(id)))
     {
-        cout << "pasta_existe";
+        std::cout << "pasta_existe";
     }else{
         if(path->absolutePath().contains(pasta))
         {
@@ -433,3 +436,4 @@ int Sistema::login(long cpf, QString senha)
     return 0; //sucesso
 }
 
+}

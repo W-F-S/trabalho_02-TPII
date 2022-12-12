@@ -11,6 +11,9 @@ CONFIG += c++17
 SOURCES += \
     agenda.cpp \
     atendente.cpp \
+    atendente_cadastrar_usuario.cpp \
+    atendente_tela.cpp \
+    login.cpp \
     main.cpp \
     mainwindow.cpp \
     medico.cpp \
@@ -20,12 +23,19 @@ SOURCES += \
 HEADERS += \
     agenda.h \
     atendente.h \
+    atendente_cadastrar_usuario.h \
+    atendente_tela.h \
+    login.h \
     mainwindow.h \
     medico.h \
     pasciente.h \
     sistema.h
 
 FORMS += \
+    atendente_cadastrar_usuario.ui \
+    atendente_tela.ui \
+    login.ui \
+    login1.ui \
     mainwindow.ui
 
 # Default rules for deployment.

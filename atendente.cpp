@@ -119,7 +119,7 @@ bool Atendente::cadastrar_atendente(Atendente *atendente)
           QString::number(atendente->get_medicos_assessorados()[2]);
     arquivo.close();
     path.setCurrent(raiz);
-    cout << "3path atual: " << path.currentPath().toStdString() << endl;
+    std::cout << "3path atual: " << path.currentPath().toStdString() << endl;
     Sistema::adicionar_lista_usuarios(0,  atendente->getNum_matricula(), atendente->getCpf(), atendente->getSenha() );
     return true;
 }
@@ -250,16 +250,16 @@ Atendente* Atendente::buscar_atendente(int id)
 
     if(!path.setCurrent(QString::fromStdString("./atendente/")+QString::number(id)))
     {
-        cout << "Erro ao tentar abrir a pasta da funcionaria" << endl;
+        std::cout << "Erro ao tentar abrir a pasta da funcionaria" << endl;
         if(!path.exists("atendente/"+QString::number(id))){
-            cout << "Atenção. Pasta \"Atendentes\" inexistente ou atendente de id:" << id << "não existe." << endl;
+            std::cout << "Atenção. Pasta \"Atendentes\" inexistente ou atendente de id:" << id << "não existe." << endl;
         }
         exit(1);
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        std::cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
         exit(1);
         //return false;
     }
@@ -299,15 +299,10 @@ bool Atendente::deletar_usuario(int id)
 
     path.setCurrent(caminho);
 
-    cout << "Atenção, a seguinte pasta e seus dados será deleta. você está de acordo?[s/N]"<< endl;
+    std::cout << "Atenção, a seguinte pasta e seus dados será deleta. você está de acordo?[s/N]"<< endl;
     qDebug() << path.currentPath();
-    cin >> resp;
+    std::getchar();
 
-    if(!(resp == 's'))
-    {
-        cout << "operação cancelada" << endl;
-        return false;
-    }
     if(!path.removeRecursively())
     {
         qDebug() << "Atenção. Houve algum erro ao tentar deletar a pasta";
@@ -315,7 +310,7 @@ bool Atendente::deletar_usuario(int id)
         {
             path.cdUp();
             qDebug() << "pastas ainda existem. Tentando novamente";
-//            qDebug() << path.currentPath();
+            qDebug() << path.currentPath();
             if(!path.rmdir(QString::number(id)))
             {
                 qDebug() << "Erro ao tentar deletar a pasta novamente";
@@ -326,7 +321,7 @@ bool Atendente::deletar_usuario(int id)
         }
     }else
     {
-        cout << "Pasta deletada" << endl;
+        std::cout << "Pasta deletada" << endl;
     }
     path.setCurrent(raiz);
     Sistema::remover_lista_usuarios(id);
@@ -351,17 +346,17 @@ Medico* Atendente::buscar_medico(int id)
 
     if(!path.setCurrent(QString::fromStdString("./medico/")+QString::number(id)))
     {
-        cout << "Erro ao tentar abrir a pasta do médico" << endl;
+        std::cout << "Erro ao tentar abrir a pasta do médico" << endl;
         if(!path.exists("./medico/"+QString::number(id)))
         {
-            cout << "Atenção. Pasta de médicos inexistente ou médico de id:" << id << "não existe." << endl;
+            std::cout << "Atenção. Pasta de médicos inexistente ou médico de id:" << id << "não existe." << endl;
         }
         exit(1);
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        std::cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
         exit(1);
         //return false;
     }
@@ -408,17 +403,17 @@ Pasciente* Atendente::buscar_pasciente(int id)
 
     if(!path.setCurrent(QString::fromStdString("./pasciente/")+QString::number(id)))
     {
-        cout << "Erro ao tentar abrir a pasta do pasciente" << endl;
+        std::cout << "Erro ao tentar abrir a pasta do pasciente" << endl;
         if(!path.exists("./pasciente/"+QString::number(id)))
         {
-            cout << "Atenção. Pasta de médicos inexistente ou pasciente de id:" << id << "não existe." << endl;
+            std::cout << "Atenção. Pasta de médicos inexistente ou pasciente de id:" << id << "não existe." << endl;
         }
         exit(1);
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        std::cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
         exit(1);
         //return false;
     }
@@ -447,16 +442,16 @@ Pasciente* Atendente::buscar_pasciente(int id)
  */
 void Atendente::mostrar_dados()
 {
-    cout << Atendente::getNome().toStdString() << endl;
-    cout << to_string(Atendente::getCpf()) << endl;
-    cout << Atendente::getEmail().toStdString() << endl;
-    cout <<  to_string(Atendente::getTelefone()) << endl;
-    cout <<  to_string(Atendente::getTelefone_whatsapp()) << endl;
-    cout << to_string(Atendente::getNum_matricula()) << endl;
-    cout << to_string(Atendente::get_Secretaria_geral()) << endl;
-    cout << Atendente::get_medicos_assessorados()[0] << endl;
-    cout << Atendente::get_medicos_assessorados()[1] << endl;
-    cout << Atendente::get_medicos_assessorados()[2]<< endl;
+    std::cout << Atendente::getNome().toStdString() << endl;
+    std::cout << std::to_string(Atendente::getCpf()) << endl;
+    std::cout << Atendente::getEmail().toStdString() << endl;
+    std::cout <<  std::to_string(Atendente::getTelefone()) << endl;
+    std::cout <<  std::to_string(Atendente::getTelefone_whatsapp()) << endl;
+    std::cout << std::to_string(Atendente::getNum_matricula()) << endl;
+    std::cout << std::to_string(Atendente::get_Secretaria_geral()) << endl;
+    std::cout << Atendente::get_medicos_assessorados()[0] << endl;
+    std::cout << Atendente::get_medicos_assessorados()[1] << endl;
+    std::cout << Atendente::get_medicos_assessorados()[2]<< endl;
 }
 }
 

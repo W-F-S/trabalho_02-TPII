@@ -18,7 +18,7 @@ void MainWindow::on_pushButtonEntrar_clicked()
 {
     dwp::Atendente atendente;
     //atendente.cadastrar_atendente(&atendente);
-    Sistema sis;
+    dwp::Sistema sis;
     int usuarioA=ui->lineEditUsuarioAtendente->text().toInt();
     int usuarioM=ui->lineEditUsuarioMedico->text().toInt();
 

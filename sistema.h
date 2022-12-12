@@ -17,7 +17,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-using namespace std;
+namespace dwp{
 
 class Sistema
 {
@@ -71,3 +71,4 @@ public:
 
     int login(long cpf, QString senha);
 };
+}

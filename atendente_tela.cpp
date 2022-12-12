@@ -13,7 +13,7 @@ Atendente_tela::~Atendente_tela()
     delete ui;
 }
 
-void set_atendente(dwp::Atendente *autenticado)
+void Atendente_tela::set_atendente(dwp::Atendente *autenticado)
 {
     Atendente_tela::autenticado = autenticado;
 
@@ -21,6 +21,8 @@ void set_atendente(dwp::Atendente *autenticado)
 
 void Atendente_tela::on_pushButton_2_clicked()
 {
+    cadastrar_pasciente = new Atendente_cadastrar_usuario(this);
+    cadastrar_pasciente->show();
 
 
 }

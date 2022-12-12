@@ -1,6 +1,9 @@
 #include "atendente_cadastrar_usuario.h"
 #include "ui_atendente_cadastrar_usuario.h"
 #include "atendente.h"
+#include <QDialog>
+#include <QMessageBox>
+
 
 Atendente_cadastrar_usuario::Atendente_cadastrar_usuario(QWidget *parent) :
     QDialog(parent),
@@ -28,6 +31,8 @@ void Atendente_cadastrar_usuario::on_pushButton_cadastrar_clicked()
     long cpf_medico = ui->lineEdit_cpf_medico->text().toLong();
     QString senha = ui->lineEdit_senha->text();
 
+
+
     if(ui->checkBox_convenio->isChecked())
     {
         particular = true;
@@ -48,5 +53,9 @@ void Atendente_cadastrar_usuario::on_pushButton_cadastrar_clicked()
 
     dwp::Atendente tmp{};
     tmp.cadastrar_pasciente(&novo_pasciente);
+
+    QMessageBox::information(this, "Cadastro de usuário", "Médico cadastrado com sucesso");
+
+    close();
 }
 

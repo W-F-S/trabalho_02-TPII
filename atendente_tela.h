@@ -4,6 +4,7 @@
 #include "atendente.h"
 #include <QDialog>
 #include "atendente_cadastrar_usuario.h"
+#include "atendente_cadastrar_medico.h"
 
 namespace Ui {
 class Atendente_tela;
@@ -21,9 +22,12 @@ public:
 private slots:
     void on_pushButton_2_clicked();
 
+    void on_pushButton_cadastrarUsuario_clicked();
+
 private:
     dwp::Atendente *autenticado;
     Atendente_cadastrar_usuario *cadastrar_pasciente;
+    Atendente_cadastrar_medico *cadastrar_medico;
 
     Ui::Atendente_tela *ui;
 };

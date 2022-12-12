@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     agenda.cpp \
     atendente.cpp \
+    atendente_cadastrar_medico.cpp \
     atendente_cadastrar_usuario.cpp \
     atendente_tela.cpp \
     login.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 HEADERS += \
     agenda.h \
     atendente.h \
+    atendente_cadastrar_medico.h \
     atendente_cadastrar_usuario.h \
     atendente_tela.h \
     login.h \
@@ -32,6 +34,7 @@ HEADERS += \
     sistema.h
 
 FORMS += \
+    atendente_cadastrar_medico.ui \
     atendente_cadastrar_usuario.ui \
     atendente_tela.ui \
     login.ui \

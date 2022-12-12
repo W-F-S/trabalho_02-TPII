@@ -5,9 +5,9 @@
 #include <QDialog>
 #include "atendente_cadastrar_usuario.h"
 #include "atendente_cadastrar_medico.h"
+<<<<<<< HEAD
 #include "get_agenda.h"
 #include "adicionar_agenda.h"
-
 
 namespace Ui {
 class Atendente_tela;
@@ -37,7 +37,6 @@ private:
     Atendente_cadastrar_medico *cadastrar_medico;
     get_agenda *g_agenda;
     Adicionar_agenda *a_agenda;
-
     Ui::Atendente_tela *ui;
 };
 

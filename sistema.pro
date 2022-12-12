@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    adicionar_agenda.cpp \
     agenda.cpp \
     atendente.cpp \
     atendente_cadastrar_medico.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
     sistema.cpp
 
 HEADERS += \
+    adicionar_agenda.h \
     agenda.h \
     atendente.h \
     atendente_cadastrar_medico.h \
@@ -34,6 +36,7 @@ HEADERS += \
     sistema.h
 
 FORMS += \
+    adicionar_agenda.ui \
     atendente_cadastrar_medico.ui \
     atendente_cadastrar_usuario.ui \
     atendente_tela.ui \

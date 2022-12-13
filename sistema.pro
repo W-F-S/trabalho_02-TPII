@@ -22,6 +22,7 @@ SOURCES += \
     mainwindow.cpp \
     medico.cpp \
     pasciente.cpp \
+    pasciente_tela.cpp \
     sistema.cpp
 
 HEADERS += \
@@ -37,6 +38,7 @@ HEADERS += \
     mainwindow.h \
     medico.h \
     pasciente.h \
+    pasciente_tela.h \
     sistema.h
 
 FORMS += \
@@ -48,7 +50,8 @@ FORMS += \
     cadastrar_atendente.ui \
     login.ui \
     login1.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    pasciente_tela.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

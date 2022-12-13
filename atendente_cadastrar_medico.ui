@@ -205,5 +205,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_cancelar</sender>
+   <signal>clicked()</signal>
+   <receiver>Atendente_cadastrar_medico</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>517</x>
+     <y>270</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>594</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

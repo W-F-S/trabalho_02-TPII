@@ -5,7 +5,7 @@
 #include <QDialog>
 #include "atendente_cadastrar_usuario.h"
 #include "atendente_cadastrar_medico.h"
-<<<<<<< HEAD
+#include "cadastrar_atendente.h"
 #include "get_agenda.h"
 #include "adicionar_agenda.h"
 
@@ -18,7 +18,7 @@ class Atendente_tela : public QDialog
     Q_OBJECT
 
 public:
-    void set_atendente(dwp::Atendente *autenticado);
+    void set_atendente(dwp::Atendente autenticado);
     explicit Atendente_tela(QWidget *parent = nullptr);
     ~Atendente_tela();
 
@@ -31,10 +31,15 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_pushButton_clicked();
+
 private:
-    dwp::Atendente *autenticado;
+    dwp::Atendente autenticado;
     Atendente_cadastrar_usuario *cadastrar_pasciente;
     Atendente_cadastrar_medico *cadastrar_medico;
+    cadastrar_atendente *cadastrar_atend;
+
+
     get_agenda *g_agenda;
     Adicionar_agenda *a_agenda;
     Ui::Atendente_tela *ui;

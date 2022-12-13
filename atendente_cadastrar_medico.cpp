@@ -54,8 +54,15 @@ void Atendente_cadastrar_medico::on_pushButton_cadastrar_clicked()
     };
 
     dwp::Atendente temp{};
-    temp.cadastrar_medico(&novo_medico);
-    QMessageBox::information(this, "Cadastro de médico", "Médico cadastrado com sucesso");
+    if(novo_medico.buscar_usuario(cpf_medico)!= "")
+    {
+        QMessageBox::information(this, "Cadastro de médico", "Erro, médico já cadastrado no sistema");
+    }
+    else
+    {
+        temp.cadastrar_medico(&novo_medico);
+        QMessageBox::information(this, "Cadastro de médico", "Médico cadastrado com sucesso");
+    }
 
     close();
 }

@@ -67,6 +67,7 @@ Medico::Medico(Sistema *usuario, QString especialidade,  bool particular, long c
 
 Medico::Medico(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha, QString especialidade,  bool particular, long crm, long *pascientes)
 {
+    Sistema::setNum_matricula(Sistema::gerar_num_matricula());
     Sistema::setNome(nome);
     Sistema::setCpf(cpf);
     Sistema::setEmail(email);

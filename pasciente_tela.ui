@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>get_agenda</class>
- <widget class="QDialog" name="get_agenda">
+ <class>Pasciente_tela</class>
+ <widget class="QDialog" name="Pasciente_tela">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>385</height>
+    <width>702</width>
+    <height>392</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>60</x>
      <y>20</y>
      <width>581</width>
      <height>351</height>
@@ -43,7 +43,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>CPF do usuario</string>
+           <string>Olá pasciente:</string>
           </property>
          </widget>
         </item>
@@ -81,6 +81,13 @@
      </spacer>
     </item>
     <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Essas são as informações contidadas na sua agenda</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QTextEdit" name="textEdit_agenda"/>
     </item>
     <item>
@@ -95,13 +102,6 @@
        </size>
       </property>
      </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>Recuperar dados da agenda</string>
-      </property>
-     </widget>
     </item>
    </layout>
   </widget>

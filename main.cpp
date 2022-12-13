@@ -1,12 +1,13 @@
 #include "mainwindow.h"
 #include "login.h"
-#include "atendente.h"
+#include "atendente_cadastrar_usuario.h"
+#include "get_agenda.h"
 #include <QApplication>
 
 using namespace dwp;
 int main(int argc, char *argv[])
 {
- /*   long *cpf = new long[3];
+    /*   long *cpf = new long[3];
     cpf[0] = 72576240558;
     cpf[1] = 13215465130;
     cpf[2] = 15413533256;
@@ -70,24 +71,31 @@ int main(int argc, char *argv[])
     getchar();
 
     cout << "criando nova atendente";*/
-    long *cpf = new long[3];
-      cpf[0] = 72576240558;
-      cpf[1] = 13215465130;
-      cpf[2] = 15413533256;
+    Sistema tmp;
+    if (tmp.buscar_usuario((long)11111111111) != "")
+    {
+        long *cpf = new long[3];
+        cpf[0] = 11111111111;
+        cpf[1] = 11111111111;
+        cpf[2] = 11111111111;
 
-    Sistema usuario_atendente{
-        "nova_atendente",
-        46578952546,
-        "nova_atendente@email.com",
-        35557856884,
-        35557856884,
-        "nova_atendente_senha"
-    };
+        Sistema usuario_atendente{
+            "atendente",
+            11111111111,
+            "atendente@email.com",
+            11111111111,
+            11111111111,
+            "senha"
+        };
 
-    Atendente nova_atendente{&usuario_atendente, true, cpf};
+        Atendente nova_atendente{&usuario_atendente, true, cpf};
 
-    nova_atendente.cadastrar_atendente(&nova_atendente);
-
+        nova_atendente.cadastrar_atendente(&nova_atendente);
+    }
+    else
+    {
+        qDebug() << "atendente padrão já existe no sistema";
+    }
     QApplication a(argc, argv);
     Login w;
     w.show();

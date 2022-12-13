@@ -67,6 +67,9 @@ Pasciente::Pasciente(QString nome, long cpf, QString email, long telefone, long 
     Sistema::setTelefone(telefone);
     Sistema::setTelefone_whatsapp(telefone_whatsapp);
     Sistema::setSenha(senha);
+
+    Sistema::setNum_matricula(Sistema::gerar_num_matricula());
+
 }
 
 

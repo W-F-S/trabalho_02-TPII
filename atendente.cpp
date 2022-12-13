@@ -38,6 +38,8 @@ Atendente::Atendente(QString nome, long cpf, QString email, long telefone, long 
     Sistema::setTelefone(telefone);
     Sistema::setTelefone_whatsapp(telefone_whatsapp);
     Sistema::setSenha(senha);
+    Sistema::setNum_matricula(Sistema::gerar_num_matricula());
+
 }
 
 //bool Atendente::exist()
@@ -80,11 +82,6 @@ bool Atendente::cadastrar_atendente(Atendente *atendente)
     QString filename{"dados.txt"};
     QFile arquivo{filename};
 
-    if(!get_Secretaria_geral())
-    {
-        qCritical() << "Erro, você não tem permissões para cadastrar uma secretaria";
-        return false;
-    }
     if(path.mkpath(folder+QString::number(id)))
     {
         qDebug() << "Pasta da secretaria de id:" + QString::number(id) + " criada";
@@ -119,7 +116,7 @@ bool Atendente::cadastrar_atendente(Atendente *atendente)
           QString::number(atendente->get_medicos_assessorados()[2]);
     arquivo.close();
     path.setCurrent(raiz);
-    std::cout << "3path atual: " << path.currentPath().toStdString() << endl;
+    qDebug() << "\n3path atual\n" << path.currentPath();
     Sistema::adicionar_lista_usuarios(0,  atendente->getNum_matricula(), atendente->getCpf(), atendente->getSenha() );
     return true;
 }
@@ -138,11 +135,6 @@ bool Atendente::cadastrar_medico(Medico *medico)
     QFile arquivo{filename};
     int id = medico->getNum_matricula();
 
-    if(!Atendente::get_Secretaria_geral())
-    {
-        qCritical() << "erro, você não tem permissões para cadastrar um médico";
-        return false;
-    }
     if(path.mkpath(folder_name + QString::number(id)))
     {
         qDebug() << "Pasta do médico de id: " + QString::number(id) + "criada";
@@ -250,16 +242,16 @@ Atendente* Atendente::buscar_atendente(int id)
 
     if(!path.setCurrent(QString::fromStdString("./atendente/")+QString::number(id)))
     {
-        std::cout << "Erro ao tentar abrir a pasta da funcionaria" << endl;
+        qDebug() << "Erro ao tentar abrir a pasta da funcionaria" << &Qt::endl;
         if(!path.exists("atendente/"+QString::number(id))){
-            std::cout << "Atenção. Pasta \"Atendentes\" inexistente ou atendente de id:" << id << "não existe." << endl;
+            qDebug() << "Atenção. Pasta \"Atendentes\" inexistente ou atendente de id:" << id << "não existe." << &Qt::endl;
         }
         exit(1);
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        std::cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        qDebug() << "Erro ao tentar abrir o arquivo em modo de leitura" << &Qt::endl;
         exit(1);
         //return false;
     }
@@ -299,7 +291,7 @@ bool Atendente::deletar_usuario(int id)
 
     path.setCurrent(caminho);
 
-    std::cout << "Atenção, a seguinte pasta e seus dados será deleta. você está de acordo?[s/N]"<< endl;
+    qDebug() << "Atenção, a seguinte pasta e seus dados será deleta. você está de acordo?[s/N]"<< &Qt::endl;
     qDebug() << path.currentPath();
     std::getchar();
 
@@ -321,7 +313,7 @@ bool Atendente::deletar_usuario(int id)
         }
     }else
     {
-        std::cout << "Pasta deletada" << endl;
+        qDebug() << "Pasta deletada" << &Qt::endl;
     }
     path.setCurrent(raiz);
     Sistema::remover_lista_usuarios(id);
@@ -346,17 +338,17 @@ Medico* Atendente::buscar_medico(int id)
 
     if(!path.setCurrent(QString::fromStdString("./medico/")+QString::number(id)))
     {
-        std::cout << "Erro ao tentar abrir a pasta do médico" << endl;
+        qDebug() << "Erro ao tentar abrir a pasta do médico" << &Qt::endl;
         if(!path.exists("./medico/"+QString::number(id)))
         {
-            std::cout << "Atenção. Pasta de médicos inexistente ou médico de id:" << id << "não existe." << endl;
+            qDebug() << "Atenção. Pasta de médicos inexistente ou médico de id:" << id << "não existe." << &Qt::endl;
         }
         exit(1);
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        std::cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        qDebug() << "Erro ao tentar abrir o arquivo em modo de leitura" << &Qt::endl;
         exit(1);
         //return false;
     }
@@ -403,17 +395,17 @@ Pasciente* Atendente::buscar_pasciente(int id)
 
     if(!path.setCurrent(QString::fromStdString("./pasciente/")+QString::number(id)))
     {
-        std::cout << "Erro ao tentar abrir a pasta do pasciente" << endl;
+        qDebug() << "Erro ao tentar abrir a pasta do pasciente" << &Qt::endl;
         if(!path.exists("./pasciente/"+QString::number(id)))
         {
-            std::cout << "Atenção. Pasta de médicos inexistente ou pasciente de id:" << id << "não existe." << endl;
+            qDebug() << "Atenção. Pasta de médicos inexistente ou pasciente de id:" << id << "não existe." << &Qt::endl;
         }
         exit(1);
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        std::cout << "Erro ao tentar abrir o arquivo em modo de leitura" << endl;
+        qDebug() << "Erro ao tentar abrir o arquivo em modo de leitura" << &Qt::endl;
         exit(1);
         //return false;
     }
@@ -442,16 +434,16 @@ Pasciente* Atendente::buscar_pasciente(int id)
  */
 void Atendente::mostrar_dados()
 {
-    std::cout << Atendente::getNome().toStdString() << endl;
-    std::cout << std::to_string(Atendente::getCpf()) << endl;
-    std::cout << Atendente::getEmail().toStdString() << endl;
-    std::cout <<  std::to_string(Atendente::getTelefone()) << endl;
-    std::cout <<  std::to_string(Atendente::getTelefone_whatsapp()) << endl;
-    std::cout << std::to_string(Atendente::getNum_matricula()) << endl;
-    std::cout << std::to_string(Atendente::get_Secretaria_geral()) << endl;
-    std::cout << Atendente::get_medicos_assessorados()[0] << endl;
-    std::cout << Atendente::get_medicos_assessorados()[1] << endl;
-    std::cout << Atendente::get_medicos_assessorados()[2]<< endl;
+    qDebug() << Atendente::getNome() << &Qt::endl;
+    qDebug() << (Atendente::getCpf()) << &Qt::endl;
+    qDebug() << Atendente::getEmail() << &Qt::endl;
+    qDebug() <<  (Atendente::getTelefone()) << &Qt::endl;
+    qDebug() <<  (Atendente::getTelefone_whatsapp()) << &Qt::endl;
+    qDebug() << (Atendente::getNum_matricula()) << &Qt::endl;
+    qDebug() << (Atendente::get_Secretaria_geral()) << &Qt::endl;
+    qDebug() << Atendente::get_medicos_assessorados()[0] << &Qt::endl;
+    qDebug() << Atendente::get_medicos_assessorados()[1] << &Qt::endl;
+    qDebug() << Atendente::get_medicos_assessorados()[2] << &Qt::endl;
 }
 }
 

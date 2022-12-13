@@ -52,10 +52,16 @@ void Atendente_cadastrar_usuario::on_pushButton_cadastrar_clicked()
     };
 
     dwp::Atendente tmp{};
-    tmp.cadastrar_pasciente(&novo_pasciente);
-
-    QMessageBox::information(this, "Cadastro de usuário", "Médico cadastrado com sucesso");
-
-    close();
+    QString teste = novo_pasciente.buscar_usuario(cpf_pasciente);
+    qDebug() << teste;
+    if(novo_pasciente.buscar_usuario(cpf_pasciente) != "")
+    {
+        QMessageBox::critical(this, "Cadastro de pasciente", "Erro. Este usuário já está cadastrado no sistema");
+    }
+    else{
+        tmp.cadastrar_pasciente(&novo_pasciente);
+        QMessageBox::information(this, "Cadastro de pasciente", "Usuário cadastrado com sucesso");
+        close();
+    }
 }
 

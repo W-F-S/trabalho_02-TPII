@@ -16,7 +16,6 @@ cadastrar_atendente::~cadastrar_atendente()
 
 void cadastrar_atendente::on_pushButtonCadastrar_clicked()
 {
-
     long *cpfs = new long[3];
     QString nome  = ui->lineEditNome->text();
     long cpf  = ui->lineEditCPF->text().toLong();
@@ -47,9 +46,15 @@ void cadastrar_atendente::on_pushButtonCadastrar_clicked()
     };
 
     dwp::Atendente temp{};
-    temp.cadastrar_atendente(&novo_atendente);
-    QMessageBox::information(this, "Cadastro de Atendente", "Atendente cadastrado com sucesso");
+    if(novo_atendente.buscar_usuario(cpf)!= "")
+    {
+        QMessageBox::critical(this, "Cadastro de Atendente", "Erro. Este usuário já está cadastrado no sistema");
+    }
+    else
+    {
+        temp.cadastrar_atendente(&novo_atendente);
+        QMessageBox::information(this, "Cadastro de Atendente", "Atendente cadastrado com sucesso");
+        close();
+    }
 
-    close();
 }
-

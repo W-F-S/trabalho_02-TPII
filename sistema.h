@@ -32,10 +32,10 @@ class Sistema
     int num_matricula;
     QString senha;
 
-    int gerar_num_matricula();
 public:
     QDir working_path{};
 
+    int gerar_num_matricula();
     Sistema();
     Sistema(Sistema*);
     Sistema(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha);

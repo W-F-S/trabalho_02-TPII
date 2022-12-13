@@ -16,14 +16,10 @@ Adicionar_agenda::~Adicionar_agenda()
 void Adicionar_agenda::on_pushButton_cadastrar_clicked()
 {
     dwp::Sistema tmp;
-
     long cpf = ui->lineEdit_cpf->text().toLong();
-
     QString texto = ui->plainTextEdit_texto->toPlainText();
-
-
     QString usuario = tmp.buscar_usuario(cpf);
-
     tmp.adicionar_agenda(usuario.split(',')[1].toLong(), &texto);
+    QMessageBox::information(this, "Adição na agenda", "Entrada adicionada com sucesso.");
 }
 

@@ -296,7 +296,7 @@ void Sistema::mostar_usuario()
 QString Sistema::buscar_usuario(long cpf)
 {
     QFile arquivo{"lista_usuarios.txt"};
-    QString dados;
+    QString dados = "";
     bool contains = false;
 
     if(!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -314,14 +314,14 @@ QString Sistema::buscar_usuario(long cpf)
     while(!contains && !in.atEnd())
     {
         dados = in.readLine();
-        if(dados.contains(QString::number(cpf)))
+        if(dados.split(',')[2].toLong() == cpf)
         {
             qDebug() << "Usuário:\n" << dados << "\nencontrado";
             contains = true;
         }
     }
     if(!contains)
-            dados = "";
+        dados = "";
     arquivo.close();
     return dados;
 }
@@ -335,11 +335,14 @@ QString Sistema::buscar_usuario(long cpf)
 QString Sistema::buscar_usuario(int id)
 {
     QFile arquivo{"lista_usuarios.txt"};
+    QDir path{};
     QString dados;
     bool contains = false;
 
+    qDebug() << path.absolutePath();
     if(!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
+        qCritical() << path.absolutePath();
         qCritical() << "Erro ao tentar abrir o arquivo" << arquivo.fileName();
         if(!arquivo.exists())
         {

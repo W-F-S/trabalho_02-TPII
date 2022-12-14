@@ -82,12 +82,12 @@ int Sistema::gerar_num_matricula(){
     QFile infile("numero_de_matricula.txt") ;
 
     if(!infile.exists()){
-        std::cout << "arquivo inexistente" << endl;
+        qDebug() << "arquivo inexistente";
     }
 
     if( !infile.open(QIODevice::ReadOnly | QIODevice::Text) )
     {
-        std::cout << "erro ao abrir o arquivo de ids" << endl;
+        qDebug() << "erro ao abrir o arquivo de ids";
     }
     QTextStream in{&infile};
 
@@ -145,7 +145,7 @@ QString Sistema::adicionar_agenda( int id, QString *agenda)
     QFile arquivo{"agenda.txt"};
     QDir path{};
     QString path_usuario = Sistema::set_path(id);
-    std::cout << "passando do set_path";
+    qDebug() << "passando do set_path";
     if(path_usuario == "")
     {
         qCritical() << "Erro ao tentar pegar o path do usuario";
@@ -188,12 +188,12 @@ QString Sistema::adicionar_lista_usuarios(int tipo, int id,long cpf, QString sen
     QFile arquivo{"lista_usuarios.txt"};
     if(!arquivo.exists())
     {
-        std::cout << "arquivo de dados não existente" << endl;
+        qDebug() << "arquivo de dados não existente";
     }
 
     if (!arquivo.open(QIODevice::ReadWrite | QIODevice::Text))
     {
-        std::cout << "Erro ao tentar criar o aquivo" << endl;
+        qDebug() << "Erro ao tentar criar o aquivo";
         return " ";
     }
 
@@ -241,12 +241,12 @@ bool Sistema::remover_lista_usuarios(int id)
     QString dados = "";
     if(!arquivo.exists())
     {
-        std::cout << "arquivo de dados não existente" << endl;
+        qDebug() << "arquivo de dados não existente";
     }
 
     if (!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        std::cout << "Erro ao tentar criar o aquivo" << endl;
+        qDebug() << "Erro ao tentar criar o aquivo";
         return false;
     }
 
@@ -266,7 +266,7 @@ bool Sistema::remover_lista_usuarios(int id)
     //abrindo o arquivo novamente, dessa vez sobreescrevendo os dados
     if (!arquivo.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        std::cout << "Erro ao tentar criar o aquivo" << endl;
+        qDebug() << "Erro ao tentar criar o aquivo";
         return false;
     }
 
@@ -278,12 +278,12 @@ bool Sistema::remover_lista_usuarios(int id)
 
 void Sistema::mostar_usuario()
 {
-        std::cout << Sistema::getNome().toStdString() << endl;
-        std::cout << std::to_string(Sistema::getCpf()) << endl;
-        std::cout << Sistema::getEmail().toStdString() << endl;
-        std::cout <<  std::to_string(Sistema::getTelefone()) << endl;
-        std::cout <<  std::to_string(Sistema::getTelefone_whatsapp()) << endl;
-        std::cout << std::to_string(Sistema::getNum_matricula()) << endl;
+        qDebug() << Sistema::getNome();
+        qDebug() << (Sistema::getCpf());
+        qDebug() << Sistema::getEmail();
+        qDebug() <<  (Sistema::getTelefone());
+        qDebug() <<  (Sistema::getTelefone_whatsapp());
+        qDebug() << (Sistema::getNum_matricula());
 }
 
 /**
@@ -296,8 +296,12 @@ void Sistema::mostar_usuario()
 QString Sistema::buscar_usuario(long cpf)
 {
     QFile arquivo{"lista_usuarios.txt"};
+    QDir path{};
     QString dados = "";
     bool contains = false;
+
+    while(path.currentPath().contains("pasciente") || path.currentPath().contains("medico") || path.currentPath().contains("atendente"))
+        path.cdUp();
 
     if(!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -340,6 +344,9 @@ QString Sistema::buscar_usuario(int id)
     bool contains = false;
 
     qDebug() << path.absolutePath();
+    while(path.currentPath().contains("pasciente") || path.currentPath().contains("medico") || path.currentPath().contains("atendente"))
+        path.cdUp();
+
     if(!arquivo.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qCritical() << path.absolutePath();
@@ -403,7 +410,7 @@ QString Sistema::set_path(int id)
     qDebug() << pasta << "/" << id;
     if(path->absolutePath().contains("./" + pasta + "/" + QString::number(id)))
     {
-        std::cout << "pasta_existe";
+        qDebug() << "pasta_existe";
     }else{
         if(path->absolutePath().contains(pasta))
         {

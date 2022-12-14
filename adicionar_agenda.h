@@ -2,6 +2,7 @@
 #define ADICIONAR_AGENDA_H
 #include "atendente.h"
 #include <QDialog>
+#include <QMessageBox>
 
 namespace Ui {
 class Adicionar_agenda;

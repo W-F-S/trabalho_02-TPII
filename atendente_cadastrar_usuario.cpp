@@ -3,7 +3,7 @@
 #include "atendente.h"
 #include <QDialog>
 #include <QMessageBox>
-
+//classe responsável por cadastrar um pasciente no sistema
 
 Atendente_cadastrar_usuario::Atendente_cadastrar_usuario(QWidget *parent) :
     QDialog(parent),
@@ -30,8 +30,6 @@ void Atendente_cadastrar_usuario::on_pushButton_cadastrar_clicked()
     long whatsapp = ui->lineEdit_whatsapp->text().toLong();
     long cpf_medico = ui->lineEdit_cpf_medico->text().toLong();
     QString senha = ui->lineEdit_senha->text();
-
-
 
     if(ui->checkBox_convenio->isChecked())
     {

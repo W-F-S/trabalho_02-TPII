@@ -80,15 +80,38 @@ Pasciente::Pasciente(QString nome, long cpf, QString email, long telefone, long 
  */
 void Pasciente::mostrar_dados()
 {
-    std::cout << Pasciente::getNome().toStdString() << endl;
-    std::cout << std::to_string(Pasciente::getCpf()) << endl;
-    std::cout << Pasciente::getEmail().toStdString() << endl;
-    std::cout <<  std::to_string(Pasciente::getTelefone()) << endl;
-    std::cout <<  std::to_string(Pasciente::getTelefone_whatsapp()) << endl;
-    std::cout << std::to_string(Pasciente::getNum_matricula()) << endl;
-    std::cout << (Pasciente::getConvenio().toStdString());
-    std::cout << (Pasciente::getMedico());
-    std::cout << (Pasciente::getParticular());
+    qDebug() << Pasciente::getNome() ;
+    qDebug() << (Pasciente::getCpf()) ;
+    qDebug() << Pasciente::getEmail() ;
+    qDebug() <<  (Pasciente::getTelefone()) ;
+    qDebug() <<  (Pasciente::getTelefone_whatsapp()) ;
+    qDebug() << (Pasciente::getNum_matricula()) ;
+    qDebug() << (Pasciente::getConvenio());
+    qDebug() << (Pasciente::getMedico());
+    qDebug() << (Pasciente::getParticular());
 
 }
+
+QString Pasciente::dados_do_pasciente()
+{
+    QString retorno =
+    "Nome: " + Pasciente::getNome() + "\n" +
+    "Cpf: "  + Pasciente::getCpf() + "\n" +
+    "Email: "+ Pasciente::getEmail() + "\n" +
+    "Telefone: "       + QString::number(Pasciente::getTelefone()) + "\n" +
+    "Whatsapp: "      + QString::number(Pasciente::getTelefone_whatsapp()) + "\n" +
+    "Codigo interno: "     + QString::number(Pasciente::getNum_matricula()) + "\n" +
+    "Medico responsável" + QString::number(Pasciente::getMedico()) + "\n";
+    if(Pasciente::getParticular())
+    {
+        retorno += QString::fromStdString("Particular: sim") + "\n" +
+                Pasciente::getConvenio();
+    }
+    else
+    {
+        retorno += "Particula: não";
+    }
+    return retorno;
+}
+
 }

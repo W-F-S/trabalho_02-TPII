@@ -53,7 +53,6 @@ void Atendente_tela::on_pushButton_3_clicked()
     a_agenda->show();
 }
 
-
 void Atendente_tela::on_pushButton_clicked()
 {
     if(Atendente_tela::autenticado.get_Secretaria_geral())
@@ -65,5 +64,12 @@ void Atendente_tela::on_pushButton_clicked()
     {
         QMessageBox::critical(this, "Atendente", "Erro. Você não possui permições para cadastrar um atendente");
     }
+}
+
+
+void Atendente_tela::on_pushButton_5_clicked()
+{
+    deletar_usuario = new deletar_user(this);
+    deletar_usuario->show();
 }
 

@@ -200,7 +200,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cadastro de pascientes</string>
+    <string>Cadastro de medicos</string>
    </property>
   </widget>
  </widget>

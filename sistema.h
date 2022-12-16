@@ -23,8 +23,6 @@ class Sistema
 {
     private:
     QString nome;
-     //filesystem::current_path(); //coletando to caminho do arquivo atual
-
     long cpf;
     QString email;
     long telefone;
@@ -33,13 +31,11 @@ class Sistema
     QString senha;
 
 public:
-    QDir working_path{};
 
     int gerar_num_matricula();
     Sistema();
     Sistema(Sistema*);
     Sistema(QString nome, long cpf, QString email, long telefone, long telefone_whatsapp, QString senha);
-    bool realizar_autenticacao(int cargo, QString email, QString senha);
     void consultar_agenda_paciente();
 
     const   QString &getNome() const;
@@ -57,18 +53,18 @@ public:
     void    setSenha(QString newSenha);
     QString getSenha();
 
+    int login(long cpf, QString senha);
+    QString *get_agenda(int id);
+    void    mostar_usuario();
+
     QString set_path(int id);
 
     QString buscar_usuario(int id);
     QString buscar_usuario(long cpf);
 
     QString adicionar_lista_usuarios(int tipo, int id,long cpf, QString senha);
-    QString *get_agenda(int id);
     QString adicionar_agenda( int id, QString *agenda);
-    bool    remover_lista_usuarios(int id);
-    void mostar_usuario();
+    bool    deletar_usuario(int id);
 
-
-    int login(long cpf, QString senha);
 };
 }

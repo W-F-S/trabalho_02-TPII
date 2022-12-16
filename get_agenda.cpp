@@ -17,11 +17,9 @@ void get_agenda::on_pushButton_clicked()
 {
     long cpf = ui->lineEdit_cpf->text().toLong();
     dwp::Sistema tmp;
-
     QString usuario = tmp.buscar_usuario(cpf);
-
+                       //pegando o id do usuario buscado
     QString *agenda = (tmp.get_agenda(usuario.split(',')[1].toInt()));
-
     ui->textEdit_agenda->setText(*agenda);
 }
 

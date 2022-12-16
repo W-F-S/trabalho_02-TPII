@@ -61,7 +61,6 @@ Medico::Medico(Sistema *usuario, QString especialidade,  bool particular, long c
     Medico::especialidade = especialidade;
     Medico::particular = particular;
     Medico::crm = crm;
-
     Medico::pascientes = pascientes;
 }
 
@@ -80,17 +79,46 @@ Medico::Medico(QString nome, long cpf, QString email, long telefone, long telefo
     Medico::pascientes = pascientes;
 }
 
+/**
+ * Função que mostra os dados do médico na tela
+ * @brief Medico::mostrar_dados
+ */
 void Medico::mostrar_dados()
 {
-    std::cout << Medico::getNome().toStdString() << endl;
-    std::cout << std::to_string(Medico::getCpf()) << endl;
-    std::cout << Medico::getEmail().toStdString() << endl;
-    std::cout <<  std::to_string(Medico::getTelefone()) << endl;
-    std::cout <<  std::to_string(Medico::getTelefone_whatsapp()) << endl;
-    std::cout << std::to_string(Medico::getNum_matricula()) << endl;
-    std::cout << Medico::getEspecialidade().toStdString() << endl;
-    std::cout << Medico::getPascientes()[0] << endl;
-    std::cout << Medico::getPascientes()[1] << endl;
-    std::cout << Medico::getPascientes()[2]<< endl;
+    qDebug() << Medico::getNome() ;
+    qDebug() << Medico::getCpf() ;
+    qDebug() << Medico::getEmail() ;
+    qDebug() <<  (Medico::getTelefone()) ;
+    qDebug() <<  (Medico::getTelefone_whatsapp()) ;
+    qDebug() << (Medico::getNum_matricula()) ;
+    qDebug() << Medico::getEspecialidade();
+    qDebug() << QString::number(Medico::getPascientes()[0]) ;
+    qDebug() << QString::number(Medico::getPascientes()[1]) ;
+    qDebug() << QString::number(Medico::getPascientes()[2]);
+}
+
+/**
+ * Função que retorna uma QString contendo os dados do médico formatados
+ * Usada na tela de login do médico
+ *
+ * @brief Medico::dados_do_medico
+ * @return
+ */
+QString Medico::dados_do_medico()
+{
+    QString retorno =
+    "Nome: " + Medico::getNome() + "\n" +
+    "Cpf: "  + Medico::getCpf() + "\n" +
+    "Email: "+ Medico::getEmail() + "\n" +
+    "Telefone: "       + QString::number(Medico::getTelefone()) + "\n" +
+    "Whatsapp: "      + QString::number(Medico::getTelefone_whatsapp()) + "\n" +
+    "Codigo interno: "     + QString::number(Medico::getNum_matricula()) + "\n" +
+    "Especialidade: "    + Medico::getEspecialidade() + "\n" +
+    "Pascientes acessorados: "  + "\n" +
+    "01: "   + QString::number(Medico::getPascientes()[0]) + "\n" +
+    "02: "  + QString::number(Medico::getPascientes()[1]) + "\n" +
+    "03: " + QString::number(Medico::getPascientes()[2]);
+    return retorno;
 }
 }
+

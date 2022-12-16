@@ -8,6 +8,7 @@
 #include "cadastrar_atendente.h"
 #include "get_agenda.h"
 #include "adicionar_agenda.h"
+#include "deletar_user.h"
 
 namespace Ui {
 class Atendente_tela;
@@ -33,11 +34,14 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_5_clicked();
+
 private:
     dwp::Atendente autenticado;
     Atendente_cadastrar_usuario *cadastrar_pasciente;
     Atendente_cadastrar_medico *cadastrar_medico;
     cadastrar_atendente *cadastrar_atend;
+    deletar_user *deletar_usuario;
 
 
     get_agenda *g_agenda;

@@ -5,21 +5,21 @@
 #include <QMessageBox>
 
 namespace Ui {
-class Adicionar_agenda;
+  class Adicionar_agenda;
 }
 
 class Adicionar_agenda : public QDialog
 {
-    Q_OBJECT
+  Q_OBJECT
 
-public:
+  public:
     explicit Adicionar_agenda(QWidget *parent = nullptr);
     ~Adicionar_agenda();
 
-private slots:
-    void on_pushButton_cadastrar_clicked();
+    private slots:
+      void on_pushButton_cadastrar_clicked();
 
-private:
+  private:
     Ui::Adicionar_agenda *ui;
 };
 
